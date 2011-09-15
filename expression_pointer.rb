@@ -18,6 +18,7 @@ class ExpressionPointer
 			@operation = OperatorNum.new(other)
 
 			debug "numeric value recognized"
+			return other
 		end
 	end
 
@@ -25,19 +26,28 @@ class ExpressionPointer
 	def +(other);	ExpressionPointer.new(OperatorAdd.new(self,other));	end
 	def -(other);	ExpressionPointer.new(OperatorSub.new(self,other));	end
 	def *(other);	ExpressionPointer.new(OperatorMul.new(self,other));	end
-	def /(other);	ExpressionPointer.new(OperatorDiv.new(self,oterh));	end
+	def /(other);	ExpressionPointer.new(OperatorDiv.new(self,other));	end
 
 	def operation
-		@operation
+		@operation || OperatorNil.new
 	end
 	alias n operation
+
+	def c
+		@operation.apply_operator
+	end
 
 
 	def to_s
 
 		unless @sym.nil?
-			@sym.to_s
+			if @operation.nil? or @operation.is_a? OperatorNil
+				@sym.to_s.bold.red
+			else
+				@sym.to_s.bold.green
+			end
 		else
+			debug "sym is nil"
 			@operation.to_s
 		end
 
