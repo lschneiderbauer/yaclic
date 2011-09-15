@@ -1,8 +1,7 @@
 #!/usr/bin/ruby
 
 require './debug.rb'
-require 'operator'
-require 'expression'
+require 'operation'
 require 'expression_pointer'
 
 
@@ -19,8 +18,6 @@ class Environment
 			if eval("@#{sym}.nil?",self.env)
 
 				# make new variable with ExpressionPointer
-
-				debug("@#{sym} = ExpressionPointer.new(nil,:#{sym})")
 				eval("@#{sym} = ExpressionPointer.new(nil,:#{sym})",self.env)
 
 				debug("new expression pointer initialized: #{eval("@#{sym}")}",1)	
@@ -48,7 +45,8 @@ bind = Environment.new.env
 
 loop do
 	#TODO recognize keystrokes like up,down (to make history etc)
-
+	#	error handling
+	
 	print "-> "
 	str = gets
 

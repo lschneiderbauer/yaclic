@@ -2,8 +2,8 @@ require './debug.rb'
 
 class ExpressionPointer
 
-	def initialize(expression=nil,sym=nil)
-		@expression = expression
+	def initialize(operation=nil,sym=nil)
+		@operation = operation
 		@sym = sym
 	end
 
@@ -12,29 +12,28 @@ class ExpressionPointer
 
 		# little duck typing
 		if other.is_a? ExpressionPointer
-			@expression = other.expression	
+			@operation = other.operation
 
 		else other.is_a? Numeric
-			@expression = Expression.new(nil,OperatorNum.new(other))
+			@operation = OperatorNum.new(other)
 
 			debug "numeric value recognized"
 		end
 
 	end
 
-	def +(other);	ExpressionPointer.new(Expression.new(self,OperatorAdd.new(other)));	end
+	def +(other);	ExpressionPointer.new(OperatorAdd.new(self,other));	end
 
-	def expression
-		@expression
+	def operation
+		@operation
 	end
 
 	def to_s
-		#!@expression.nil? ? @expression.to_s : "#{@sym}"
-		
+
 		unless @sym.nil?
 			@sym.to_s
 		else
-			@expression.to_s
+			@operation.to_s
 		end
 
 	end
