@@ -19,14 +19,19 @@ class ExpressionPointer
 
 			debug "numeric value recognized"
 		end
-
 	end
 
+
 	def +(other);	ExpressionPointer.new(OperatorAdd.new(self,other));	end
+	def -(other);	ExpressionPointer.new(OperatorSub.new(self,other));	end
+	def *(other);	ExpressionPointer.new(OperatorMul.new(self,other));	end
+	def /(other);	ExpressionPointer.new(OperatorDiv.new(self,oterh));	end
 
 	def operation
 		@operation
 	end
+	alias n operation
+
 
 	def to_s
 
