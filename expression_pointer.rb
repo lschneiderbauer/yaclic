@@ -1,5 +1,6 @@
 require './debug.rb'
 
+
 class ExpressionPointer
 
 	def initialize(operation=nil,sym=nil)
@@ -16,7 +17,7 @@ class ExpressionPointer
 
 		else other.is_a? Numeric
 			@operation = OperatorNum.new(other)
-
+		
 			debug "numeric value recognized"
 			return other
 		end
@@ -28,15 +29,24 @@ class ExpressionPointer
 	def *(other);	ExpressionPointer.new(OperatorMul.new(self,other));	end
 	def /(other);	ExpressionPointer.new(OperatorDiv.new(self,other));	end
 
+	# operation-node
 	def operation
 		@operation || OperatorNil.new
 	end
 	alias n operation
 
-	def c
+	# calculate
+	def calculate
 		@operation.apply_operator
 	end
+	alias c calculate
 
+
+	# to deal with numbers
+	def coerce(other)
+		debug "coerced"
+		return self,other
+	end
 
 	def to_s
 

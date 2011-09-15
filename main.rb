@@ -13,8 +13,9 @@ loop do
 	puts
 	print " >> ".bold.green + "|  ".blue
 
+	input = gets
+
 	begin
-		input = gets
 		output = "#{eval(input,bind)}"
 	rescue SyntaxError, NoMethodError => error
 		debug error.to_s
@@ -25,7 +26,3 @@ loop do
 
 	puts (" << ".yellow.bold + "|  ".blue + output)
 end
-
-# TODO
-# Numeric should have ExpressionPointer mixedin (with sym=nil) and OperatorNum
-
