@@ -11,7 +11,6 @@ class ExpressionPointer
 	def <<(other)
 		#TODO check for loops etc!
 
-		# little duck typing
 		if other.is_a? ExpressionPointer
 			@operation = other.operation
 
@@ -23,11 +22,13 @@ class ExpressionPointer
 		end
 	end
 
+	def -@;	ExpressionPointer.new(OperatorAddInv.new(self));	end
+	def +@;	self;	end
 
 	def +(other);	ExpressionPointer.new(OperatorAdd.new(self,other));	end
-	def -(other);	ExpressionPointer.new(OperatorSub.new(self,other));	end
+	def -(other);	self.+(ExpressionPointer.new(OperatorAddInv.new(other)));	end
 	def *(other);	ExpressionPointer.new(OperatorMul.new(self,other));	end
-	def /(other);	ExpressionPointer.new(OperatorDiv.new(self,other));	end
+	def /(other);	self.*(ExpressionPointer.new(OperatorMulInv.new(other)));	end
 
 	# operation-node
 	def operation

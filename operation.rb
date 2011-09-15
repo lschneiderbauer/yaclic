@@ -44,13 +44,13 @@ class OperatorAdd < Operation
 
 end
 
-class OperatorSub < Operation
-
-	def to_s
-		"(#{@operand1} - #{@operand2})"
-	end
-
-end
+#class OperatorSub < Operation
+#
+#	def to_s
+#		"(#{@operand1} - #{@operand2})"
+#	end
+#
+#end
 
 class OperatorMul < Operation
 
@@ -63,6 +63,31 @@ class OperatorMul < Operation
 	end
 
 end
+
+class OperatorAddInv < Operation
+
+	def to_s
+		"-#{@operand1}".bold
+	end
+
+	def apply_operator
+		-@operand1.operation.apply_operator
+	end
+
+end
+
+class OperatorMulInv < Operation
+
+	def to_s
+		"1/#{@operand1}".bold
+	end
+
+	def apply_operator
+		1.to_f/@operand1.operation.apply_operator
+	end
+
+end
+
 
 class OperatorNum < Operation
 
