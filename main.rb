@@ -1,28 +1,28 @@
 #!/usr/bin/ruby
 
 require 'environment'
+require 'prompt'
 require 'colored'
 
+#bind = Environment.new.env
+prompt = Prompt.new
 
-bind = Environment.new.env
+prompt.start_loop
 
-loop do
-	#TODO recognize keystrokes like up,down (to make history etc)
-	#	error handling
-	
-	puts
-	print " >> ".bold.green + "|  ".blue
-
-	input = gets
-
-	begin
-		output = "#{eval(input,bind)}"
-	rescue SyntaxError, NoMethodError => error
-		debug error.to_s
-		output = "error, statement ignored".red
-	rescue CannotCalculateException
-		output = "cannot be calculated".red
-	end
-
-	puts (" << ".yellow.bold + "|  ".blue + output)
-end
+#loop do
+#	puts
+#	print " >> ".bold.green + "|  ".blue
+#
+#	input = reader.reads
+#
+#	begin
+#		output = "#{eval(input,bind)}"
+#	rescue SyntaxError, NoMethodError => error
+#		debug error.to_s
+#		output = "error, statement ignored".red
+#	rescue CannotCalculateException
+#		output = "cannot be calculated".red
+#	end
+#
+#	puts (" << ".yellow.bold + "|  ".blue + output)
+#end
