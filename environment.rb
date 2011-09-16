@@ -26,9 +26,9 @@ class Environment
 
 	end
 
-	def expression_pointers
-		@expression_pointers ||= []
-	end
+	#def expression_pointers
+	#	@expression_pointers ||= []
+	#end
 	
 	# define calculator commands
 	# ====================================
