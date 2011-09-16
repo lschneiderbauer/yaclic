@@ -44,14 +44,6 @@ class OperatorAdd < Operation
 
 end
 
-#class OperatorSub < Operation
-#
-#	def to_s
-#		"(#{@operand1} - #{@operand2})"
-#	end
-#
-#end
-
 class OperatorMul < Operation
 
 	def to_s
@@ -115,7 +107,7 @@ class OperatorNil < Operation
 	end
 
 	def to_s
-		"nil".bold.red	
+		"nil".bold.red
 	end
 end
 

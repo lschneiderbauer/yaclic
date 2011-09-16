@@ -1,12 +1,17 @@
 require 'colored'
+require 'operation'
 require 'environment'
 
 class Prompt
 
 	def initialize
-		@bind = Environment.new.env
+		@bind = Environment.new(self).env
 		@history = []
 		@pointer = 0
+	end
+
+	def history
+		@history.clone
 	end
 
 
@@ -28,20 +33,28 @@ class Prompt
 				output = "cannot be calculated atm".red
 			end
 
-			puts get_out_prompt + output
+			output.each_line do |line|
+				puts get_out_prompt + line	
+			end
 		end
 
 	end
+
+
 
 	private
 
 	def reads
 		str = ""	
 		ch = 0
+		ignore_next = false
+
 		until ch.chr == "\r" do 
 			ch = get_char
-		
+	
+			unless ignore_next # to prevent umlauts from messing up the string
 			case ch
+				when 195 then ignore_next = true # umlaut kommt
 				when 27 then #arrow
 				when 91 then #arrow
 				when 65 then #up
@@ -79,6 +92,9 @@ class Prompt
 				when 127 then print "\b \b" if str != ""; str.chop!
 				else print ch.chr; str << ch.chr; debug "#{ch} added to str"
 			end
+			else
+				ignore_next = false
+			end
 
 		end
 		print "\n"
@@ -107,6 +123,7 @@ class Prompt
 
 	def reset_text(str)
 		(get_in_prompt.length + str.length).times { print "\b \b" }
+		# (get_in and get_out_prompt 's length are equal)
 	end
 
 end

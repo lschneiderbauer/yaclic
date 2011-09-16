@@ -1,9 +1,12 @@
 require './debug.rb'
-require 'operation'
 require 'expression_pointer'
 
 class Environment
 
+	def initialize(prompt)
+		@prompt = prompt
+	end
+	
 	def env
 		return binding
 	end
@@ -14,7 +17,7 @@ class Environment
 		if sym.to_s =~ /^.*/	# if method-name is ascii ..
 			if eval("@#{sym}.nil?",self.env)
 
-				# make new variable with ExpressionPointer
+				# create new variable with ExpressionPointer
 				eval("@#{sym} = ExpressionPointer.new(nil,:#{sym})",self.env)
 
 				debug("new expression pointer initialized: #{eval("@#{sym}")}",1)	
@@ -26,14 +29,20 @@ class Environment
 
 	end
 
-	#def expression_pointers
-	#	@expression_pointers ||= []
-	#end
-	
+
 	# define calculator commands
 	# ====================================
 	def quit
 		exit
+	end
+
+	def history
+		"#{@prompt.history.inspect}".cyan
+	end
+
+	def help
+		#TODO write help text
+		"help".underline + "\nhelp\nhelp!"
 	end
 
 end

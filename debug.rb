@@ -1,5 +1,5 @@
 def debug(text,level=0)
-	if true
+	if $debug
 		s = ""; level.times{ s << "\t" }
 
 		File.open("/tmp/yac_debug","a") do |f|

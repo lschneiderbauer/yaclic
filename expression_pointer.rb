@@ -38,7 +38,7 @@ class ExpressionPointer
 
 	# calculate
 	def calculate
-		@operation.apply_operator
+		"#{@operation.apply_operator}".bold.green
 	end
 	alias c calculate
 
@@ -59,7 +59,11 @@ class ExpressionPointer
 			end
 		else
 			debug "sym is nil"
-			@operation.to_s
+			begin
+				self.c
+			rescue CannotCalculateException
+				@operation.to_s
+			end
 		end
 
 	end
