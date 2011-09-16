@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
 # set process name
-$0='dzen_statusbar'
+$0='yac'
 
 require 'pathname'
 
