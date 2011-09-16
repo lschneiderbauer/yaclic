@@ -1,4 +1,4 @@
-require './debug.rb'
+require 'my_debug.rb'
 
 
 class ExpressionPointer

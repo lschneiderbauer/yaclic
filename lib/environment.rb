@@ -1,4 +1,4 @@
-require './debug.rb'
+require 'my_debug.rb'
 require 'expression_pointer'
 
 class Environment
@@ -43,6 +43,10 @@ class Environment
 	def help
 		#TODO write help text
 		"help".underline + "\nhelp\nhelp!"
+	end
+
+	def test
+		"This is a test!".cyan
 	end
 
 end
