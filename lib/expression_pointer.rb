@@ -29,6 +29,7 @@ class ExpressionPointer
 	def -(other);	self.+(ExpressionPointer.new(OperatorAddInv.new(other)));	end
 	def *(other);	ExpressionPointer.new(OperatorMul.new(self,other));	end
 	def /(other);	self.*(ExpressionPointer.new(OperatorMulInv.new(other)));	end
+	def **(other);	ExpressionPointer.new(OperatorPow.new(self,other));	end
 
 	# operation-node
 	def operation

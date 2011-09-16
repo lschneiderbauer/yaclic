@@ -56,6 +56,18 @@ class OperatorMul < Operation
 
 end
 
+class OperatorPow < Operation
+
+	def to_s
+		"(".blue.bold + "#{@operand1} ".bold + "**".cyan.bold + " #{@operand2}".bold + ")".blue.bold
+	end
+
+	def apply_operator
+		@operand1.operation.apply_operator ** @operand2.operation.apply_operator
+	end
+
+end
+
 class OperatorAddInv < Operation
 
 	def to_s
