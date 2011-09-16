@@ -46,7 +46,7 @@ class ExpressionPointer
 	# to deal with numbers
 	def coerce(other)
 		debug "coerced"
-		return self,other
+		return ExpressionPointer.new(OperatorNum.new(other)), self
 	end
 
 	def to_s
