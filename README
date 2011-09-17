@@ -2,14 +2,15 @@
 
 Goal is a simple and intuitive cli-calculator, where symbols can be as easily used as numbers. Cause of writing such a calculator again is, that there exists just the "super-dumb-simple" ones and the "heavily-armed" ones (or at least I didn't find anything between).
 
-So that's my (not finished of course) solution. It constists more or less of an extended ruby-shell, which does the parsing etc.
+So that's my (not finished of course) solution. It constists more or less of an extended ruby-shell.
 
+For detailed information have a look at its man page.
 
 
 == (current) Features
 
-- Symbol usage
 - Basic arithmetical oprations
+- Symbol usage
 - Console history
 - Colored output
 

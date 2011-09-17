@@ -1,0 +1,50 @@
+.TH Yac 1 "Sep 2011"
+.SH NAME
+Yac \- Yet Another Calculator
+.SH SYNOPSIS
+.B yac
+.RI [ options ]
+.SH DESCRIPTION
+This manual page documents the
+.B yac
+command.
+.PP
+\fBYac\fP is a simple and intuitive cli-calculator, where symbols can be as easily used as numbers. Cause of writing such a calculator again is, that there exists just the "super-dumb-simple" ones and the "heavily-armed" ones (or at least I didn't find anything between).
+.PP
+So that's my (not finished of course) solution. It constists more or less of an extended ruby-shell.
+
+.SH FEATURES
+.TP
+.B Basic arithmetical operations
+For now \fBYac\fP supports just the basic arithmetical operations like +,-,*,/ and exponentials (**). More is planned for the future.
+.TP
+.B Symbol usage
+Ascii-Symbols can be used to represent a combination of operations with other symbols or numbers. The syntax is as you would expect it (like writing a formular on the paper), but more to it in the \fBUSAGE\fP section. Symbol-based simplifiing or equation-solving is not supported and most likely never will be.
+.TP
+.B Colored output
+Just colored output to enhance the reader-eye's comfort.
+.TP
+.B Console history
+The history works as the bash history. Just use the arrow-keys. For now the history session doesn't get restored on program starts, but that will possibly change in the future.
+
+.SH USAGE
+
+todo
+
+.SH OPTIONS
+These programs follow the usual GNU command line syntax, with long
+options starting with two dashes (`-'). A summary of options is included below.
+.PP
+Note that all command line options can also be used as builtin commands in the program's cli.
+.TP
+.B \-\-help
+Show man page
+.TP
+.B \-\-version
+Print Yac version and release date
+
+.SH BUGS
+The program is in its very early stage. Please file bugs at https://github.com/vootey/yac or send an email to the author (see \fBAUTHOR\fP).
+
+.SH AUTHOR
+Yac was written by Lukas Schneiderbauer <lukas.schneiderbauer@gmail.com>.
