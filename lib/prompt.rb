@@ -33,6 +33,12 @@ class Prompt
 				output = "cannot be calculated atm".red
 			end
 
+			# for safety reasons, print a warning if using the '=' character
+			if input.include? "=" then
+				output = "warning:".red.underline +
+					"\tunless you know, what you do, use '<<' instead of '=' as access operator!\n".red +
+					"\t\t'=' does most likely NOT behave as you expect it to do.\n".red + output; end
+
 			output.each_line do |line|
 				puts get_out_prompt + line	
 			end
