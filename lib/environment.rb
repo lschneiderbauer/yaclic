@@ -41,8 +41,8 @@ class Environment
 	end
 
 	def help
-		#TODO write help text
-		"help".underline + "\nhelp\nhelp!"
+		# opens man-page
+		`man yac`
 	end
 
 	def test
