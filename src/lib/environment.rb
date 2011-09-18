@@ -45,6 +45,10 @@ class Environment
 		`man yac`
 	end
 
+	def version
+		"git"
+	end
+
 	def test
 		"This is a test!".cyan
 	end
