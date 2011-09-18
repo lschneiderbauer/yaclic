@@ -9,42 +9,91 @@ This manual page documents the
 .B yac
 command.
 .PP
-\fBYac\fP is a simple and intuitive cli-calculator, where symbols can be as easily used as numbers. Cause of writing such a calculator again is, that there exists just the "super-dumb-simple" ones and the "heavily-armed" ones (or at least I didn't find anything between).
+\fBYac\fP is a simple and intuitive cli-calculator, where symbols can be as easily used as numbers.
+Cause of writing such a calculator again is, that there exists just the "super-dumb-simple" ones and the "heavily-armed" ones (or at least I didn't find anything between).
 .PP
-So that's my (not finished of course) solution. It constists more or less of an extended ruby-shell.
+So that's my solution (and there's work in progress).
+It constists more or less of an extended ruby-shell.
 
 .SH FEATURES
 .TP
 .B Basic arithmetical operations
-For now \fBYac\fP supports just the basic arithmetical operations like +,-,*,/ and exponentials (**). More is planned for the future.
+For now \fBYac\fP supports just the basic arithmetical operations like +,-,*,/ and exponentials (**).
+More is planned for the future.
 .TP
 .B Symbol usage
-Ascii-Symbols can be used to represent a combination of operations with other symbols or numbers. The syntax is as you would expect it (like writing a formular on the paper), but more to it in the \fBUSAGE\fP section. Symbol-based simplifiing or equation-solving is not supported and most likely never will be.
+Ascii-Symbols can be used to represent a combination of operations with other symbols or numbers.
+The syntax is as you would expect it (like writing a formula on the paper), but more to it in the \fBUSAGE\fP section.
+Symbol-based simplifiing or equation-solving is not supported and most likely never will be.
 .TP
 .B Colored output
 Just colored output to enhance the reader-eye's comfort.
 .TP
-.B Console history
-The history works as the bash history. Just use the arrow-keys. For now the history session doesn't get restored on program starts, but that will possibly change in the future.
+.B Input history
+The history works like the bash history.
+Just use the arrow-keys.
+For now the history session doesn't get restored on program starts, but that will possibly change in the future.
 
 .SH USAGE
+As already told, \fBYac\fP tries to be as intuitive as possible.
+However, as always there are a few rules, you have to stick on to.
 
-todo
+.SS '<<' instead of '='
+Due to technical reasons, it is used '<<' instead of '=' as assignment operator.
+Meaning, instead of 'a=b+d' it has to be written 'a<<b+d'; say 'a' holds the expression 'b+d'.
+In some way, this nomenclature is even better, as it cannot mislead you to think of the character as a comparator.
+
+.SS '.c' for real \fIc\fPalculation
+Let's use the case from above: 'a<<b+d'.
+If on of your next inputs is 'a', \fBYac\fP will tell you the expression 'a' is holding: '(b + d)'.
+Of course, 'b' and 'd' could again hold other expressions or even real numbers.
+If both are real numbers (e.g. b<<4, d<<3), you might eventually be interested in seeing, what the real solution is.
+This can be accomplished with the '.c' suffix: 'a.c' gives '7'. The next example reflects that.
+
+.SS
+example
+(>> |' marks input, '<< |' marks output)
+.P
+$ yac
+.P
+>> |  a << b + d/2
+.P
+<< |  (b + (d * 0.5))
+.P
+>> |  b << 3
+.P
+<< |  3
+.P
+>> |  d << 2.5
+.P
+<< |  2.5
+.P
+>> |  a.c
+.P
+<< |  4.25
+.P
+>> |  a
+.P
+<< |  (b + (d * 0.5))
+
 
 .SH OPTIONS
-These programs follow the usual GNU command line syntax, with long
-options starting with two dashes (`-'). A summary of options is included below.
-.PP
 Note that all command line options can also be used as builtin commands in the program's cli.
+A summary of options is included below.
 .TP
-.B \-\-help
-Show man page
+.B (\-\-)help
+Show this man page
 .TP
-.B \-\-version
+.B version
 Print Yac version and release date
+.TP
+.B {expression}
+An expression (without curly brackets) can directly be passed through to the calculators evaluator.
+After evaluating, yac will terminate immediatly.
 
 .SH BUGS
-The program is in its very early stage. Please file bugs at https://github.com/vootey/yac or send an email to the author (see \fBAUTHOR\fP).
+The program is in its very early stage.
+Please file bugs at https://github.com/vootey/yac or send an email to the author (see \fBAUTHOR\fP).
 
 .SH AUTHOR
-Yac was written by Lukas Schneiderbauer <lukas.schneiderbauer@gmail.com>.
+Yac was written and is maintained by Lukas Schneiderbauer <lukas.schneiderbauer@gmail.com>.
