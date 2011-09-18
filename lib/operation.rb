@@ -96,15 +96,15 @@ end
 class OperatorNum < Operation
 
 	def initialize(p)
-		@operand=p
+		@numeric=p
 	end
 
 	def to_s
-		@operand.to_s.bold.green
+		@numeric.to_s.bold.green
 	end
 
 	def apply_operator
-		@operand
+		@numeric
 	end
 end
 
