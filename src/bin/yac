@@ -15,4 +15,13 @@ require 'prompt'
 $debug = true
 
 prompt = Prompt.new
-prompt.start_loop
+
+if ARGV.empty? # parameters?
+	prompt.start_loop
+else
+	# before do some preprocessing
+	arg = ARGV.join(" ") + "\n"
+	#if arg.length >= 2 && arg[1,2] == "--" 
+
+	prompt.do_cycle(arg)
+end

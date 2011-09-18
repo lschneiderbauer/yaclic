@@ -16,36 +16,47 @@ class Prompt
 
 
 	def start_loop
-		
+
 		loop do
-
-			puts 
-			print get_in_prompt
-
-			input = reads
-
-			begin
-				output = "#{eval(input,@bind)}"
-			rescue SyntaxError, NoMethodError => error
-				debug error.to_s
-				output = "error, statement ignored".red
-			rescue CannotCalculateException
-				output = "cannot be calculated atm".red
-			end
-
-			# for safety reasons, print a warning if using the '=' character
-			if input.include? "=" then
-				output = "warning:".red.underline +
-					"\tunless you know, what you do, use '<<' instead of '=' as access operator!\n".red +
-					"\t\t'=' does most likely NOT behave as you expect it to do.\n".red + output; end
-
-			output.each_line do |line|
-				puts get_out_prompt + line	
-			end
+			do_cycle
 		end
 
 	end
 
+
+	def do_cycle(arg=nil)
+
+		print get_in_prompt
+
+		if arg.nil?		# is input already there?
+			input = reads
+		else
+			input = arg
+			print arg
+		end
+
+		begin
+			output = "#{eval(input,@bind)}"
+		rescue SyntaxError, NoMethodError => error
+			debug error.to_s
+			output = "error, statement ignored".red
+		rescue CannotCalculateException
+			output = "cannot be calculated atm".red
+		end
+
+		# for safety reasons, print a warning if using the '=' character
+		if input.include? "=" then
+			output = "warning:".red.underline +
+				"\tunless you know, what you do, use '<<' instead of '=' as access operator!\n".red +
+				"\t\t'=' does most likely NOT behave as you expect it to do.\n".red + output; end
+
+		output.each_line do |line|
+			puts get_out_prompt + line	
+		end
+
+		return output
+
+	end
 
 
 	private
