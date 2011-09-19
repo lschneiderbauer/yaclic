@@ -5,9 +5,9 @@
 EAPI=4
 
 USE_RUBY="ruby18"
-EGIT_REPO_URI="git://github.com/vootey/yac.git"
+RUBY_FAKEGEM_TASK_TEST="test"
 
-inherit ruby-ng
+inherit ruby-fakegem
 
 DESCRIPTION="A simple and intuitive cli calculator"
 HOMEPAGE="https://github.com/vootey/yac"
@@ -22,15 +22,7 @@ KEYWORDS="~amd64"
 
 IUSE=""
 
-src_install() {
-	cd "${RUBY_S}"
-	echo `ls`
-#	cd "./"
-#	dobin yac || die
 
-#	cd "../lib/"
-#	dolib *.rb || die
-#
-#	cd "../man/"
-#	doman "*.1" || die
+all_ruby_install() {
+	doman "./man/yac.1" || die
 }
