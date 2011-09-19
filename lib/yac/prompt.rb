@@ -78,27 +78,22 @@ class Prompt
 
 						if @pointer == @history.size && str != ""  # the last saving
 							@history.push(str)
-							#@pointer+=1
 						end
 
 						@pointer -= 1
 
 						reset_text(str)
-
 						str = @history[@pointer].clone
-
 						print get_in_prompt + str
 					end
 
 				when 66 then #down
 					debug "arrow down"
-					if !@history.nil? && @pointer < @history.size-1
+					if !@history.nil? && @pointer <= @history.size-1
 						@pointer += 1
 
 						reset_text(str)
-
-						str = @history[@pointer].clone
-
+						str = (@pointer != @history.size ? @history[@pointer].clone : "")
 						print get_in_prompt + str
 					end
 
