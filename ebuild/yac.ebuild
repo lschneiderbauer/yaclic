@@ -25,4 +25,6 @@ IUSE=""
 
 all_ruby_install() {
 	doman "./man/yac.1" || die
+
+	ruby_fakegem_binwrapper yac
 }
