@@ -1,6 +1,3 @@
-require 'my_debug.rb'
-require 'expression_pointer'
-
 class Environment
 
 	def initialize(prompt)

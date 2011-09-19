@@ -10,7 +10,7 @@ ABS_PATH = Pathname.new(__FILE__).realpath.dirname.parent
 $LOAD_PATH << ABS_PATH + "lib/"
 
 
-require 'prompt'
+require 'yac'
 
 $debug = true
 
@@ -20,7 +20,7 @@ if ARGV.empty? # parameters?
 	prompt.start_loop
 else
 	# before do some preprocessing
-	arg = ARGV.join(" ") + "\n"
+	arg = ARGV.join(" ")
 	#if arg.length >= 2 && arg[1,2] == "--" 
 
 	prompt.do_cycle(arg)

@@ -1,7 +1,3 @@
-require 'colored'
-require 'operation'
-require 'environment'
-
 class Prompt
 
 	def initialize
@@ -32,7 +28,7 @@ class Prompt
 			input = reads
 		else
 			input = arg
-			print arg
+			puts input
 		end
 
 		begin

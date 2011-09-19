@@ -1,6 +1,3 @@
-require 'my_debug.rb'
-
-
 class ExpressionPointer
 
 	def initialize(operation=nil,sym=nil)
