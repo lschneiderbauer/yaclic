@@ -46,11 +46,13 @@ class Prompt
 				"\tunless you know, what you do, use '<<' instead of '=' as access operator!\n".red +
 				"\t\t'=' does most likely NOT behave as you expect it to do.\n".red + output; end
 
+		last_line = ""
 		output.each_line do |line|
 			puts get_out_prompt + line	
+			last_line = line
 		end
 
-		return output
+		return last_line
 
 	end
 

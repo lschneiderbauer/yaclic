@@ -21,7 +21,7 @@ if ARGV.empty? # parameters?
 else
 	# before do some preprocessing
 	arg = ARGV.join(" ")
-	#if arg.length >= 2 && arg[1,2] == "--" 
+	arg.delete! "--" if arg.start_with? "--" 
 
 	prompt.do_cycle(arg)
 end

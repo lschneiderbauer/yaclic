@@ -39,15 +39,18 @@ class Environment
 
 	def help
 		# opens man-page
-		`man yac`
+		#`man yac`
+		system "man yac"
+
+		"Here you are.".cyan
 	end
 
 	def version
-		"git"
+		"Release 2".cyan
 	end
 
 	def test
-		"This is a test!".cyan
+		"Okay.".cyan
 	end
 
 end
