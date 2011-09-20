@@ -1,5 +1,3 @@
-require 'colored'
-
 class Operation
 
 	def initialize(p1,p2=nil)

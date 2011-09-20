@@ -1,4 +1,4 @@
-require 'colored'
+require 'yac/colored'
 require 'yac/environment'
 require 'yac/expression_pointer'
 require 'yac/operation'
