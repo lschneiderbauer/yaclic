@@ -2,7 +2,7 @@ class ExpressionPointer
 
 	def initialize(operation=nil,sym=nil)
 		@operation = operation
-		@name = ExpressionPointerName.new(sym,self)
+		@sym = sym
 	end
 
 	def <<(other)
@@ -42,7 +42,7 @@ class ExpressionPointer
 	end
 
 	def unfold	# unfold all pointers
-		# todo
+		self.to_s(false,true)
 	end
 
 	alias n operation
@@ -58,22 +58,24 @@ class ExpressionPointer
 
 	# - let to_s decide, waht to print, not "<<"-method (done on "<<"-method-side)
 	# - normally, the output should be as input (uncalculated)
-	# - if the user wants it calculated, then print as much info calculated as possible (and leave the rest), don't just abort!!
-	def to_s
-
-		# decide, what should be printed based on the caller method: distinguish directly from prompt and tree-call
-		if caller_method(caller(1).first) == "to_s"
-			@name.to_s
+	def to_s(unfold_first=true, unfold_all=false)
+	
+		if @sym.nil?
+			self.c
 		else
-			if @name.sym.nil? # a<<2;b<<3;a+b should give 5, not a+b
-				begin
-					self.c
-				rescue CannotCalculateException
-					operation.to_s
-				end
+			raise CannotCalculateException
+		end
+	
+	rescue CannotCalculateException
+
+		unless unfold_all
+			if unfold_first
+				get_operation_s(false)
 			else
-				operation.to_s
+				get_sym_s
 			end
+		else
+			get_operation_s(true)
 		end
 
 	end
@@ -81,36 +83,19 @@ class ExpressionPointer
 
 	private
 
-	def caller_method(at)
-		if /^(.+?):(\d+)(?::in `(.*)')?/ =~ at
-			#file = Regexp.last_match[1]
-		    	#line = Regexp.last_match[2].to_i
-			method = Regexp.last_match[3]
-			#[file, line, method]
+	def get_operation_s(unfold)
+		unless operation.is_a? OperatorNil
+			operation.to_s(unfold)
+		else
+			get_sym_s
 		end
 	end
-
-end
-
-
-class ExpressionPointerName
-
-	def initialize(sym, expr_p)
-		@sym = sym
-		@expr_p = expr_p
-	end
-
-	def sym; @sym; end
-
-	def to_s
-		unless @sym.nil?
-			if @expr_p.operation.is_a? OperatorNil
-				@sym.to_s.bold.red
-			else
-				@sym.to_s.bold.green
-			end
+	
+	def get_sym_s
+		if operation.is_a? OperatorNil
+			@sym.to_s.bold.red
 		else
-			@expr_p.operation.to_s
+			@sym.to_s.bold.green
 		end
 	end
 

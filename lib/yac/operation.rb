@@ -2,7 +2,7 @@ require 'colored'
 
 class Operation
 
-	def initialize(p1,p2=nil)	
+	def initialize(p1,p2=nil)
 
 		@operand1 = 
 		if p1.is_a? Numeric then
@@ -32,10 +32,22 @@ class Operation
 
 end
 
-class OperatorAdd < Operation
+class BinaryOperator < Operation
 
-	def to_s
-		"(".blue.bold + "#{@operand1} ".bold + "+".cyan.bold + " #{@operand2}".bold + ")".blue.bold
+	def to_s(unfold=false)
+		"(".blue.bold +
+			@operand1.to_s(false,unfold) +
+			" " + ops.cyan.bold + " " +
+			@operand2.to_s(false,unfold) +
+		")".blue.bold
+	end
+
+end
+
+class OperatorAdd < BinaryOperator
+
+	def ops
+		"+"
 	end
 
 	def apply_operator
@@ -44,10 +56,10 @@ class OperatorAdd < Operation
 
 end
 
-class OperatorMul < Operation
+class OperatorMul < BinaryOperator
 
-	def to_s
-		"(".blue.bold + "#{@operand1} ".bold + "*".cyan.bold + " #{@operand2}".bold + ")".blue.bold
+	def ops
+		"*"
 	end
 
 	def apply_operator
@@ -56,10 +68,10 @@ class OperatorMul < Operation
 
 end
 
-class OperatorPow < Operation
+class OperatorPow < BinaryOperator
 
-	def to_s
-		"(".blue.bold + "#{@operand1} ".bold + "**".cyan.bold + " #{@operand2}".bold + ")".blue.bold
+	def ops
+		"**"
 	end
 
 	def apply_operator
@@ -99,7 +111,7 @@ class OperatorNum < Operation
 		@numeric=p
 	end
 
-	def to_s
+	def to_s(unfold=false) # ignore
 		@numeric.to_s.bold.green
 	end
 
