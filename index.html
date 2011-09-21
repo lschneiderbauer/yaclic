@@ -20,7 +20,7 @@
     h1 .small { font-size: 0.4em; }
     h1 a { text-decoration: none }
     h2 { font-size: 1.5em; color: #8dfa70; }
-    h3 { text-align: center; color: #8dfa70; }
+    h3 { font-size: 1em;; color: #8dfa70; }
     a { color: #8dfa70; }
     .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
     .download { float: right; }
@@ -36,13 +36,13 @@
   <div id="container">
 
     <div class="download">
-      <a href="http://github.com/vootey/yaclic/zipball/master">
+      <a href="http://github.com/vootey/yaclic/zipball/v2">
         <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/vootey/yaclic/tarball/master">
+      <a href="http://github.com/vootey/yaclic/tarball/v2">
         <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
     </div>
 
-    <h1><a href="http://github.com/vootey/yaclic">yaclic</a>
+    <h1><a href="http://github.com/vootey/yaclic">Yaclic</a>
       <span class="small">by <a href="http://github.com/vootey">vootey</a></span></h1>
 
     <div class="description">
@@ -52,17 +52,19 @@
     <p>Yaclic is a simple and intuitive cli-calculator, where symbols can be as easily used as numbers. Cause of writing such a calculator again is, that there exists just the "super-dumb-simple" ones and the "heavily-armed" ones (or at least I didn't find anything between).</p>
 
 <p>So that's my solution (and there's work in progress). It constists more or less of an extended ruby-shell.</p>
+
+<p>For detailed information have a look at its man page: <pre>$ man ./man/yaclic.1</pre></p>
 <h2>Dependencies</h2>
-<p>Ruby 1.8</p>
+<p>>= Ruby 1.8</p>
 <h2>Install</h2>
-<h3>as Gem</h3>
+<h3>* Gem</h3>
 <p>You can install Yaclic as Ruby-Gem. Just pull the sources and do
 <pre>$ gem build ./yaclic.gemspec
 <br />$ gem install ./yaclic-{v}.gem</pre>
-where v is the current version of yaclic.</p>
-<h3>as Ebuild</h3>
+where {v} is the current version of yaclic.</p>
+<h3>* Ebuild</h3>
 <p>If you're using Gentoo, you can also download the ebuild (<code>./ebuild/yaclic.ebuild</code>) and place it in your local overlay. Note, that you have to add the version-suffix to the filename. For example, if you want to use the tag 'v2' you have to name your ebuild <code>yaclic-2.ebuild</code></p> 
-A simple <pre>emerge yaclic</pre> will do the rest.
+A simple <pre>$ emerge yaclic</pre> will do the rest.
 <h2>License</h2>
 <p>Copyright (C) 2011  Lukas Schneiderbauer</p>
 <p>This program is free software; you can redistribute it and/or
@@ -75,9 +77,9 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.</p>
 <h2>Authors</h2>
-<p>Lukas Schneiderbauer (lukas.schneiderbauer@gmail.com)<br/><br/>      </p>
+<p>Lukas Schneiderbauer (lukas.schneiderbauer@gmail.com)	</p>
 <h2>Contact</h2>
-<p>Lukas Schneiderbauer (lukas.schneiderbauer@gmail.com)<br/>      </p>
+<p>Lukas Schneiderbauer (lukas.schneiderbauer@gmail.com)     	</p>
 
 
     <h2>Download</h2>
