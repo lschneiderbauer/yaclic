@@ -10,7 +10,7 @@ RUBY_FAKEGEM_TASK_TEST="test"
 inherit ruby-fakegem
 
 DESCRIPTION="A simple and intuitive cli calculator"
-HOMEPAGE="https://github.com/vootey/yac"
+HOMEPAGE="https://github.com/vootey/yaclic"
 
 GITHUB_USER="vootey"
 SRC_URI="https://github.com/${GITHUB_USER}/${PN}/tarball/v${PV} -> ${P}.tgz"
@@ -24,7 +24,7 @@ IUSE=""
 
 
 all_ruby_install() {
-	doman "./man/yac.1" || die
+	doman "./man/yaclic.1" || die
 
-	ruby_fakegem_binwrapper yac
+	ruby_fakegem_binwrapper yaclic
 }

@@ -23,7 +23,7 @@
 
 
 require 'test/unit'
-require 'yac'
+require 'yaclic'
 
 
 class TestColor < Test::Unit::TestCase

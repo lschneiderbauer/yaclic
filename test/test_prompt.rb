@@ -1,5 +1,5 @@
 require 'test/unit'
-require 'yac'
+require 'yaclic'
 
 class PromptTest < Test::Unit::TestCase
 

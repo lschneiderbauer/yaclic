@@ -46,7 +46,7 @@ class Environment
 	end
 
 	def version
-		"Release 2".cyan
+		"Yaclic, Release ###, ###".cyan
 	end
 
 	def test

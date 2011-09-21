@@ -1,8 +1,8 @@
-= Yet Another Calculator
+= Yet Another Cli Calculator
 
 Goal is a simple and intuitive cli-calculator, where symbols can be as easily used as numbers. Cause of writing such a calculator again is, that there exists just the "super-dumb-simple" ones and the "heavily-armed" ones (or at least I didn't find anything between).
 
-So that's my (not finished of course) solution. It constists more or less of an extended ruby-shell.
+So that's my solution (wip). It constists more or less of an extended ruby-shell.
 
 For detailed information have a look at its man page.
 

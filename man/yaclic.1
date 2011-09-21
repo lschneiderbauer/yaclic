@@ -1,15 +1,15 @@
-.TH Yac 1 "Sep 2011"
+.TH Yaclic 1 "Sep 2011"
 .SH NAME
-Yac \- Yet Another Calculator
+Yaclic \- Yet Another Cli Calculator
 .SH SYNOPSIS
-.B yac
+.B yaclic
 .RI [ options ]
 .SH DESCRIPTION
 This manual page documents the
-.B yac
+.B yaclic
 command.
 .PP
-\fBYac\fP is a simple and intuitive cli-calculator, where symbols can be as easily used as numbers.
+\fBYaclic\fP is a simple and intuitive cli-calculator, where symbols can be as easily used as numbers.
 Cause of writing such a calculator again is, that there exists just the "super-dumb-simple" ones and the "heavily-armed" ones (or at least I didn't find anything between).
 .PP
 So that's my solution (and there's work in progress).
@@ -18,7 +18,7 @@ It constists more or less of an extended ruby-shell.
 .SH FEATURES
 .TP
 .B Basic arithmetical operations
-For now \fBYac\fP supports just the basic arithmetical operations like +,-,*,/ and exponentials (**).
+For now \fBYaclic\fP supports just the basic arithmetical operations like +,-,*,/ and exponentials (**).
 More is planned for the future.
 .TP
 .B Symbol usage
@@ -35,7 +35,7 @@ Just use the arrow-keys.
 For now the history session doesn't get restored on program starts, but that will possibly change in the future.
 
 .SH USAGE
-As already told, \fBYac\fP tries to be as intuitive as possible.
+As already told, \fBYaclic\fP tries to be as intuitive as possible.
 However, as always there are a few rules, you have to stick on to.
 
 .SS '<<' instead of '='
@@ -45,7 +45,7 @@ In some way, this nomenclature is even better, as it cannot mislead you to think
 
 .SS '.c' for real \fIc\fPalculation
 Let's use the case from above: 'a<<b+d'.
-If one of your next inputs is 'a', \fBYac\fP will tell you the expression 'a' is holding: '(b + d)'.
+If one of your next inputs is 'a', \fBYaclic\fP will tell you the expression 'a' is holding: '(b + d)'.
 Of course, 'b' and 'd' could again hold other expressions or even real numbers.
 If both are real numbers (e.g. b<<4, d<<3), you might eventually be interested in seeing, what the real solution is.
 This can be accomplished with the '.c' suffix: 'a.c' gives '7'.
@@ -104,7 +104,7 @@ A summary of options is included below.
 Show this man page
 .TP
 .B (\-\-)version
-Print Yac version and release date
+Print Yaclic version and release date
 .TP
 .B {expression}
 An expression (without curly brackets) can directly be passed through to the calculators evaluator.
@@ -112,7 +112,7 @@ After evaluating, yac will terminate immediatly.
 
 .SH BUGS
 The program is in its very early stage.
-Please file bugs at https://github.com/vootey/yac or send an email to the author (see \fBAUTHOR\fP).
+Please file bugs at https://github.com/vootey/yaclic or send an email to the author (see \fBAUTHOR\fP).
 
 .SH AUTHOR
-Yac was written and is maintained by Lukas Schneiderbauer <lukas.schneiderbauer@gmail.com>.
+Yaclic was written and is maintained by Lukas Schneiderbauer <lukas.schneiderbauer@gmail.com>.

@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 # set process name
-$0='yac'
+$0='yaclic'
 
 require 'pathname'
 
@@ -10,7 +10,7 @@ ABS_PATH = Pathname.new(__FILE__).realpath.dirname.parent
 $LOAD_PATH << ABS_PATH + "lib/"
 
 
-require 'yac'
+require 'yaclic'
 
 $debug = true
 
