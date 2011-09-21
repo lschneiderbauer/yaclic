@@ -8,7 +8,7 @@
   <style type="text/css">
     body {
       margin-top: 1.0em;
-      background-color: #72058f;
+      background-color: #444444;
       font-family: Helvetica, Arial, FreeSans, san-serif;
       color: #ffffff;
     }
@@ -49,24 +49,28 @@
       Yet Another Cli Calculator
     </div>
 
-    <p>Yaclic is a simple and intuitive cli-calculator, where symbols can be as easily used as numbers. Cause of writing such a calculator again is, that there exists just the "super-dumb-simple" ones and the "heavily-armed" ones (or at least I didn't find anything between).
+    <p>Yaclic is a simple and intuitive cli-calculator, where symbols can be as easily used as numbers. Cause of writing such a calculator again is, that there exists just the "super-dumb-simple" ones and the "heavily-armed" ones (or at least I didn't find anything between).</p>
 
-So that's my solution (and there's work in progress). It constists more or less of an extended ruby-shell.</p><h2>Dependencies</h2>
+<p>So that's my solution (and there's work in progress). It constists more or less of an extended ruby-shell.</p>
+<h2>Dependencies</h2>
 <p>Ruby 1.8</p>
 <h2>Install</h2>
+<h3>as Gem</h3>
 <p>You can install Yaclic as Ruby-Gem. Just pull the sources and do
-gem build ./yaclic.gemspec
-gem install yaclic-{v}.gem
+<pre>$ gem build ./yaclic.gemspec
+<br />$ gem install ./yaclic-{v}.gem</pre>
 where v is the current version of yaclic.</p>
+<h3>as Ebuild</h3>
+<p>If you're using Gentoo, you can also download the ebuild (<code>./ebuild/yaclic.ebuild</code>) and place it in your local overlay. Note, that you have to add the version-suffix to the filename. For example, if you want to use the tag 'v2' you have to name your ebuild <code>yaclic-2.ebuild</code></p> 
+A simple <pre>emerge yaclic</pre> will do the rest.
 <h2>License</h2>
-<p>Copyright (C) 2011  Lukas Schneiderbauer
-
-This program is free software; you can redistribute it and/or
+<p>Copyright (C) 2011  Lukas Schneiderbauer</p>
+<p>This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
 as published by the Free Software Foundation; either version 2
 of the License, or (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
+<p>This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.</p>
