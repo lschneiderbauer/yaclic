@@ -37,7 +37,7 @@ class Prompt
 		rescue SyntaxError, NoMethodError => error
 			debug error.to_s
 			output = "error, statement ignored".red
-		rescue CannotCalculateException
+		rescue CannotCalculateError
 			output = "cannot be calculated atm".red
 		end
 

@@ -63,10 +63,10 @@ class ExpressionPointer
 		if @sym.nil?
 			self.c
 		else
-			raise CannotCalculateException
+			raise CannotCalculateError
 		end
 	
-	rescue CannotCalculateException
+	rescue CannotCalculateError
 
 		unless unfold_all
 			if unfold_first

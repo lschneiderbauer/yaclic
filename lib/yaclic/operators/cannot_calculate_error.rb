@@ -1,0 +1,1 @@
+class CannotCalculateError < Exception; end
