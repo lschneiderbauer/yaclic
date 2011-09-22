@@ -54,6 +54,19 @@ class PromptTest < Test::Unit::TestCase
 
 	end
 
+	def test_history
+		
+		@prompt = Prompt.new
+
+		his = ["e<<a+b","x+yz","history"]
+
+		@prompt.do_cycle his[0]
+		@prompt.do_cycle his[1]
+
+		assert_equal his.inspect.cyan, @prompt.do_cycle(his[2])
+
+	end
+
 	def teardown
 		$stdout = STDOUT
 	end

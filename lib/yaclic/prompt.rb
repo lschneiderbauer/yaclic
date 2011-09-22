@@ -28,6 +28,7 @@ class Prompt
 			input = reads
 		else
 			input = arg
+			@history.push(input)
 			puts input
 		end
 
