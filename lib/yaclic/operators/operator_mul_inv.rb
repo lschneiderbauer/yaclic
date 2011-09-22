@@ -1,7 +1,7 @@
 class OperatorMulInv < Expression
 
-	def to_s
-		"1/#{@operand1}".bold
+	def to_s(unfold=false)
+		"1/#{@operand1.to_s(unfold)}".bold
 	end
 
 	def apply_operator

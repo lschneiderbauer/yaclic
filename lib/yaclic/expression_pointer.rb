@@ -72,7 +72,11 @@ class ExpressionPointer
 			if unfold_first
 				get_operation_s(false)
 			else
-				get_sym_s
+				unless @sym.nil?
+					get_sym_s
+				else
+					get_operation_s(false)
+				end
 			end
 		else
 			get_operation_s(true)

@@ -1,7 +1,7 @@
 class OperatorAddInv < Expression
 
-	def to_s
-		"-#{@operand1}".bold
+	def to_s(unfold=false)
+		"-#{@operand1.to_s(unfold)}".bold
 	end
 
 	def apply_operator
