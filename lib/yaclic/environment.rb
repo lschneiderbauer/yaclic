@@ -51,7 +51,7 @@ class Environment
 	def help
 		# opens man-page
 		#`man yac`
-		system "man yac"
+		system "man yaclic"
 
 		"Here you are.".cyan
 	end
