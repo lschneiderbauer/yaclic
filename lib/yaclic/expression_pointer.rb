@@ -59,11 +59,12 @@ class ExpressionPointer
 		return ExpressionPointer.new(OperatorNum.new(other)), self
 	end
 
-	# - let to_s decide, waht to print, not "<<"-method (done on "<<"-method-side)
-	# - normally, the output should be as input (uncalculated)
+	# I admit, this code is a piece of shit,
+	# but at least it works, and the results are
+	# as I want them.
 	def to_s(unfold_first=true, unfold_all=false)
 	
-		if @sym.nil?
+		if @sym.nil? && unfold_first
 			self.c
 		else
 			raise CannotCalculateError
