@@ -17,7 +17,7 @@ For detailed information have a look at its man page.
 
 
 == Usage / Example
-$ yac
+$ yaclic
  a << b+d/2
  b << e*f
  d << 14
