@@ -39,6 +39,8 @@ class Prompt
 			output = "error, statement ignored".red
 		rescue CannotCalculateError
 			output = "cannot be calculated atm".red
+		rescue ArgumentError
+			output = "wrong number of arguments".red
 		end
 
 		# for safety reasons, print a warning if using the '=' character

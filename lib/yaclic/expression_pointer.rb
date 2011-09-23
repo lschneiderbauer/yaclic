@@ -28,6 +28,9 @@ class ExpressionPointer
 	def /(other);	self.*(ExpressionPointer.new(OperatorMulInv.new(other)));	end
 	def **(other);	ExpressionPointer.new(OperatorPow.new(self,other));	end
 
+	def sin;	ExpressionPointer.new(OperatorSin.new(self));	end
+	def cos;	ExpressionPointer.new(OperatorCos.new(self));	end
+
 	# operation-node
 	def operation
 		@operation || OperatorNil.new

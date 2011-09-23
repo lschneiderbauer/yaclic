@@ -18,13 +18,17 @@ It constists more or less of an extended ruby-shell.
 .SH FEATURES
 .TP
 .B Basic arithmetical operations
-For now \fBYaclic\fP supports just the basic arithmetical operations like +,-,*,/ and exponentials (**).
+\fBYaclic\fP supports the basic arithmetical operations like +,-,*,/ and exponential function (**) as the sinus und cosinus function for now.
 More is planned for the future.
 .TP
 .B Symbol usage
 Ascii-Symbols can be used to represent a combination of operations with other symbols or numbers.
 The syntax is as you would expect it (like writing a formula on the paper), but more to it in the \fBUSAGE\fP section.
 Symbol-based simplifiing or equation-solving is not supported and most likely never will be.
+.TP
+.B Support for common constants
+You can use constants like PI as symbols.
+Note, that you have to write them in upper case letters.
 .TP
 .B Colored output
 Just colored output to enhance the reader-eye's comfort.
@@ -62,7 +66,7 @@ Again the next example should make the difference clear.
 EXAMPLE
 (>> |' marks input, '<< |' marks output)
 .P
-$ yac
+$ yaclic
 .P
 >> |  a << b + e
 .P

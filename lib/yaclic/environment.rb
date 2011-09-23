@@ -1,4 +1,5 @@
 class Environment
+	include Math
 
 	def initialize(prompt)
 		@prompt = prompt
@@ -27,7 +28,17 @@ class Environment
 	end
 
 
-	# define calculator commands
+	# (global) calculator operations
+	# ====================================
+	def sin(expr_p)
+		ExpressionPointer.new(OperatorSin.new(expr_p))
+	end
+	def cos(expr_p)
+		ExpressionPointer.new(OperatorCos.new(expr_p))
+	end
+
+
+	# calculator commands
 	# ====================================
 	def quit
 		exit

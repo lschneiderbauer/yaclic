@@ -32,5 +32,11 @@ class OperationTest < Test::Unit::TestCase
 
 		assert_equal 2, o.apply_operator
 	end
+
+	def test_sin
+		o = OperatorSin.new(Math::PI)
+
+		assert_equal -1.to_f, o.apply_operator
+	end
 	
 end
