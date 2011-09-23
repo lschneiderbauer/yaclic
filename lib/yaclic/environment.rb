@@ -57,7 +57,7 @@ class Environment
 	end
 
 	def version
-		"Yaclic, Release ###, ###".cyan
+		"Yaclic, Release 3, 2011 Sept 23".cyan
 	end
 
 	def test
