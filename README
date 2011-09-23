@@ -1,28 +1,7 @@
-= Yet Another Cli Calculator
+= Yaclic - Yet Another Cli Calculator
 
-Goal is a simple and intuitive cli-calculator, where symbols can be as easily used as numbers. Cause of writing such a calculator again is, that there exists just the "super-dumb-simple" ones and the "heavily-armed" ones (or at least I didn't find anything between).
+Yaclic is a simple and intuitive cli-calculator, where symbols can be as easily used as numbers. Cause of writing such a calculator again is, that there exists just the "super-dumb-simple" ones and the "heavily-armed" ones (or at least I didn't find anything between).
+So that's my solution (wip).
+It constists more or less of an extended ruby-shell.
 
-So that's my solution (wip). It constists more or less of an extended ruby-shell.
-
-For detailed information have a look at its man page.
-
-
-== (current) Features
-
-- Basic arithmetical oprations
-- Symbol usage
-- Console history
-- Colored output
-
-
-
-== Usage / Example
-$ yaclic
- a << b+d/2
- b << e*f
- d << 14
- e << 4
- f << 0.2
- a.c
- 
- > 7.8
+For detailed information such as features or examples have a look at its man page and/or the project's webpage.
