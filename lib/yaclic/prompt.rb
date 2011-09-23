@@ -41,6 +41,9 @@ class Prompt
 			output = "cannot be calculated atm".red
 		rescue ArgumentError
 			output = "wrong number of arguments".red
+		rescue NameError => error
+			debug error.to_s
+			output = "error, use lower case letters as symbols".red
 		end
 
 		# for safety reasons, print a warning if using the '=' character

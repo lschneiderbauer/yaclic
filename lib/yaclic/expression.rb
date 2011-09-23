@@ -1,6 +1,6 @@
 class Expression
 
-	def initialize(p1,p2=nil)
+	def initialize(p1=nil,p2=nil)
 
 		@operand1 = 
 		if p1.is_a? Numeric then

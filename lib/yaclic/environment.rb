@@ -3,6 +3,10 @@ class Environment
 
 	def initialize(prompt)
 		@prompt = prompt
+
+		# initialize environment variables/constants
+		@pi = ExpressionPointer.new(ConstPi.new)
+		@ee = ExpressionPointer.new(ConstE.new)
 	end
 	
 	def env
