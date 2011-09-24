@@ -8,7 +8,8 @@ Gem::Specification.new do |s|
 	s.summary	=	"Yet another cli calculator"
 	s.authors	=	["Lukas Schneiderbauer"]
 	s.email		=	'lukas.schneiderbauer@gmail.com'
-	s.files		=	FileList["lib/yaclic/operators/*.rb","lib/yaclic/*.rb","lib/*.rb","bin/*","test/*"].to_a
+	s.files		=	FileList["lib/yaclic/constants/*.rb", "lib/yaclic/operators/*.rb",
+					"lib/yaclic/*.rb","lib/*.rb","bin/*","test/*"].to_a
 	s.homepage	=	"http://vootey.github.com/yaclic/"
 
 end
