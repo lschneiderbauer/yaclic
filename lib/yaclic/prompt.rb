@@ -124,7 +124,8 @@ class Prompt
 	def get_char
 		old_state = `stty -g`
 		system "stty raw -echo"
-		ch = STDIN.getc
+
+		ch = (RUBY_VERSION < "1.9" ? STDIN.getc : STDIN.getbyte)
 	ensure
 		system "stty #{old_state}"
 		return ch
