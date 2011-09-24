@@ -61,7 +61,7 @@ class Environment
 	end
 
 	def version
-		"Yaclic, Release 3, 2011 Sept 23".cyan
+		"Yaclic r3".bold.cyan + ", 2011 Sept 23, on Ruby #{RUBY_VERSION}".cyan
 	end
 
 	def test
