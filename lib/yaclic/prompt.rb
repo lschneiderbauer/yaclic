@@ -122,10 +122,11 @@ class Prompt
 	end
 
 	def get_char
+		old_state = `stty -g`
 		system "stty raw -echo"
 		ch = STDIN.getc
 	ensure
-		system "stty -raw echo"
+		system "stty #{old_state}"
 		return ch
 	end
 
