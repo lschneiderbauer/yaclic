@@ -1,7 +1,11 @@
 class ConstE
 	
 	def to_s(ignore)
-		"\u212F".cyan.bold
+		if RUBY_VERSION >= "1.9"
+			"\u212F".cyan.bold
+		else #fallback
+			"ee".cyan.bold
+		end
 	end
 
 	def apply_operator
