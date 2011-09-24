@@ -1,7 +1,7 @@
 class ConstE
 	
 	def to_s(ignore)
-		"ee".cyan.bold
+		"\u212F".cyan.bold
 	end
 
 	def apply_operator
