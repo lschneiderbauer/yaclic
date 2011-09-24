@@ -49,7 +49,7 @@ class Prompt
 		# for safety reasons, print a warning if using the '=' character
 		if input.include? "=" then
 			output = "warning:".red.underline +
-				"\tunless you know, what you do, use '<<' instead of '=' as access operator!\n".red +
+				"\tunless you know, what you do, use '<<' instead of '=' as assignment operator!\n".red +
 				"\t\t'=' does most likely NOT behave as you expect it to do.\n".red + output; end
 
 		last_line = ""
