@@ -22,35 +22,7 @@ class ExpressionPointer
 
 	# use as function with x-range
 	def [](expr_p,range,step=1)
-
-		# set up new environment
-		# TOOD: reserve keywords with ___
-		old_colored = $colored	
-		$colored = false
-		bind = Environment.new(nil).env
-		eval("___function << #{self.u}",bind)
-
-		# set all unset variables to 1
-		eval("#{expr_p.to_s(false,false)} << 1",bind)
-
-		go = false
-		until go do
-			begin
-				eval("___function.c",bind)
-				go = true
-			rescue CannotCalculateError => error
-				eval("#{error.expr_p.to_s(false,false)} << 1",bind)
-			end
-		end
-	
-		ar = []
-		range.step(step) do |num|
-			eval("#{expr_p.to_s(false,false)} << #{num}",bind)
-			ar << eval("___function.c",bind)
-		end
-		$colored = old_colored
-
-		return ar.map{|e| e.green.bold }.join "\n"
+		Dataset.new(self,expr_p,range,step)
 	end
 
 
@@ -80,37 +52,10 @@ class ExpressionPointer
 		self.to_s(false,true)
 	end
 
-#	def plot(x,range=-1..1)
-#		unless $hasnot_gnuplot
-#
-#			# plot some stuff
-#			Gnuplot.open do |gp|
-#				Gnuplot::Plot.new gp do |plot|
-#
-#					plot.title "blah"
-#					plot.xrange "[#{range.begin}:#{range.end}]"
-#
-#					plot.ylabel x.to_s(false,false)
-#					plot.xlabel self.to_s(true,true)
-#
-#					plot.data << Gnuplot::DataSet.new() do
-#
-#					end
-#
-#				end
-#			end
-#
-#			"Here you are.".cyan
-#		else
-#			"gnuplot support not available".red
-#		end
-#	end
-
 
 	alias n operation
 	alias c calculate
 	alias u unfold
-#	alias p plot
 
 
 	# to deal with numbers

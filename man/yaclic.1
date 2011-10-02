@@ -30,7 +30,10 @@ Symbol-based simplifiing or equation-solving is not supported and most likely ne
 Expressions assigned to symbols can be used as function of another symbols.
 For example, it's possible to iterate through a range of values and print the results in one step.
 For detailed information see the []-operator.
-More useful features are planned in this regard (like function plotting).
+.TP
+.B Function plotting
+Expressions as functions can easily be plotted as well.
+The Gnuplot ruby bindings (and gnuplot of course) have to be installed, if you want this feature.
 .TP
 .B Support for common constants
 You can use constants like PI or E as symbols.
@@ -68,7 +71,7 @@ The symbol 'b' is linked to an expression held by 'a'.
 If you look at 'a' and are interested in the resolved linkage tree, you can use 'a.u', which will give you '((e * f) + d)'.
 Again the next example should make the difference clear.
 
-.SS '[]' for calculating a range of values
+.SS '[]' for creating datasets
 Let's define a symbol 'f << x**2 + b'.
 We can now look at it from a more 'functional' perspective and say 'f' is a function dependend on 'x' with a constant 'b'.
 If we want to print some values of 'f', we can write 'f[x,-5..5,1]'.
@@ -76,6 +79,7 @@ The first parameter defines the independent variable, the second the used range 
 The symbol 'b' is not mentioned at all, which means, it is constant.
 If 'b' (or other constants) is (/are) undefined, it'll default to 1.
 Output will be something like '26 17 10 5 2 1 2 5 10 17 26'.
+Additionally you can plot your function in the defined range easily with e.g. 'f[x,-5..5].plot'.
 
 .SH
 EXAMPLE

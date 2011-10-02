@@ -7,6 +7,7 @@ end
 
 require 'yaclic/my_debug'
 require 'yaclic/colored'
+require 'yaclic/dataset'
 
 # Expressions
 require 'yaclic/expression_pointer'
