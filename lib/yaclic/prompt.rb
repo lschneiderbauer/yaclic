@@ -73,13 +73,19 @@ class Prompt
 
 		until ch.chr == "\r" do 
 			ch = get_char
+
+			debug ch
 	
 			unless ignore_next # to prevent umlauts from messing up the string
 			case ch
+				when 3 then # strg + c (simulate quit)
+					print "quit"
+					str << "quit"
+					ch = 13
+
 				when 195 then ignore_next = true # umlaut comes
 				when 27 then ignore_next = true # arrow comes
 				#when 91 then #arrow
-				#	debug "["
 				when 65 then #up
 					debug "arrow up"
 					if !@history.nil? && @pointer > 0	
