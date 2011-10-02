@@ -1,4 +1,4 @@
-class ConstE
+class ConstE < Expression
 	
 	def to_s(ignore)
 		if RUBY_VERSION >= "1.9"
