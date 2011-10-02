@@ -44,6 +44,8 @@ class Prompt
 		rescue NameError => error
 			debug error.to_s
 			output = "error, use lower case letters as symbols".red
+		rescue ZeroDivisionError
+			output = "cannot divide by 0".red
 		end
 
 		# for safety reasons, print a warning if using the '=' character
