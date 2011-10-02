@@ -90,11 +90,18 @@ module Colored
     tmp
   end
 
-  def colorize(string, options = {})
-    colored = [color(options[:foreground]), color("on_#{options[:background]}"), extra(options[:extra])].compact * ''
-    colored << string
-    colored << extra(:clear)
-  end
+
+	def colorize(string, options = {})
+		if $colored
+			colored = [color(options[:foreground]), color("on_#{options[:background]}"), extra(options[:extra])].compact * ''
+			colored << string
+			colored << extra(:clear)
+			return colored
+		else
+			return string
+		end
+	end
+
 
   def colors
     @@colors ||= COLORS.keys.sort

@@ -27,6 +27,15 @@ require 'yaclic'
 
 
 class TestColor < Test::Unit::TestCase
+
+	def setup
+		$colored = true
+	end
+
+	def teardown
+		$colored = false
+	end
+
   def test_one_color
     assert_equal "\e[31mred\e[0m", "red".red
   end

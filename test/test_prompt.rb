@@ -10,7 +10,7 @@ class PromptTest < Test::Unit::TestCase
 
 	def test_test
 			
-		assert_equal "Okay.".cyan, @prompt.do_cycle("test")
+		assert_equal "Okay.", @prompt.do_cycle("test")
 
 	end
 
@@ -20,7 +20,7 @@ class PromptTest < Test::Unit::TestCase
 		@prompt.do_cycle("a << 3")
 		@prompt.do_cycle("b << 4")
 
-		assert_equal 7.to_s.bold.green, @prompt.do_cycle("d.c")
+		assert_equal 7.to_s, @prompt.do_cycle("d.c")
 	end
 
 	def test_less_simple_calc
@@ -31,7 +31,7 @@ class PromptTest < Test::Unit::TestCase
 		@prompt.do_cycle("x << g")
 		@prompt.do_cycle("y << 2**3")
 
-		assert_equal 95.625.to_s.bold.green , @prompt.do_cycle("f.c")
+		assert_equal 95.625.to_s , @prompt.do_cycle("f.c")
 
 	end
 
@@ -40,7 +40,7 @@ class PromptTest < Test::Unit::TestCase
 		@prompt.do_cycle("x << 3")
 		@prompt.do_cycle("y << 4")
 
-		assert_equal 12.to_s.bold.green,  @prompt.do_cycle("x*y")
+		assert_equal 12.to_s,  @prompt.do_cycle("x*y")
 
 	end
 
@@ -63,7 +63,7 @@ class PromptTest < Test::Unit::TestCase
 		@prompt.do_cycle his[0]
 		@prompt.do_cycle his[1]
 
-		assert_equal his.inspect.cyan, @prompt.do_cycle(his[2])
+		assert_equal his.inspect, @prompt.do_cycle(his[2])
 
 	end
 
