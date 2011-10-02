@@ -8,14 +8,16 @@ class PromptTest < Test::Unit::TestCase
 		@prompt = Prompt.new
 	end
 
-	def test_test
-			
-		assert_equal "Okay.", @prompt.do_cycle("test")
+	def teardown
+		$stdout = STDOUT
+	end
 
+
+	def test_test
+		assert_equal "Okay.", @prompt.do_cycle("test")
 	end
 
 	def test_simple_calc
-
 		@prompt.do_cycle("d << a + b")
 		@prompt.do_cycle("a << 3")
 		@prompt.do_cycle("b << 4")
@@ -36,22 +38,49 @@ class PromptTest < Test::Unit::TestCase
 	end
 
 	def test_1	# a<<3;b<<5;a+b should give 8, not "a+b"
-
 		@prompt.do_cycle("x << 3")
 		@prompt.do_cycle("y << 4")
 
 		assert_equal 12.to_s,  @prompt.do_cycle("x*y")
-
 	end
 
 	def test_2	# test unfold-function (nil must not be in it)
-
 		@prompt.do_cycle("d << a+b")
 		@prompt.do_cycle("a << e+f")
 		@prompt.do_cycle("b << 4")
 
 		assert(!(@prompt.do_cycle("d.u").include?("nil")))
+	end
 
+	# test more unfold-stuff
+	def prep
+		@prompt.do_cycle("a << b + c")
+		@prompt.do_cycle("b << 3")
+	end
+
+	def test_3
+		prep
+		assert_equal "(b + c)", @prompt.do_cycle("a.to_s")
+	end
+
+	def test_4
+		prep
+		assert_equal "(3 + c)", @prompt.do_cycle("a.to_s(true,true)")
+	end
+
+	def test_5
+		prep
+		assert_equal "a", @prompt.do_cycle("a.to_s(false,false)")
+	end
+	
+	def test_6
+		prep
+		assert_equal "(b + c)", @prompt.do_cycle("a")
+	end
+
+	def test_7
+		prep
+		assert_equal "(3 + c)", @prompt.do_cycle("a.u")
 	end
 
 	def test_history
@@ -67,7 +96,4 @@ class PromptTest < Test::Unit::TestCase
 
 	end
 
-	def teardown
-		$stdout = STDOUT
-	end
 end
