@@ -1,5 +1,14 @@
+begin
+	require 'gnuplot'
+rescue LoadError
+	$hasnot_gnuplot = true
+end
+
+
 require 'yaclic/my_debug'
 require 'yaclic/colored'
+
+# Expressions
 require 'yaclic/expression_pointer'
 require 'yaclic/expression'
 

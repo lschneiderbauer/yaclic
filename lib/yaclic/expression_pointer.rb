@@ -48,9 +48,37 @@ class ExpressionPointer
 		self.to_s(false,true)
 	end
 
+#	def plot(x,range=-1..1)
+#		unless $hasnot_gnuplot
+#
+#			# plot some stuff
+#			Gnuplot.open do |gp|
+#				Gnuplot::Plot.new gp do |plot|
+#
+#					plot.title "blah"
+#					plot.xrange "[#{range.begin}:#{range.end}]"
+#
+#					plot.ylabel x.to_s(false,false)
+#					plot.xlabel self.to_s(true,true)
+#
+#					plot.data << Gnuplot::DataSet.new() do
+#
+#					end
+#
+#				end
+#			end
+#
+#			"Here you are.".cyan
+#		else
+#			"gnuplot support not available".red
+#		end
+#	end
+
+
 	alias n operation
 	alias c calculate
 	alias u unfold
+#	alias p plot
 
 
 	# to deal with numbers
