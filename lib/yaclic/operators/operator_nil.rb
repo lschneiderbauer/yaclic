@@ -1,11 +1,11 @@
 class OperatorNil < Expression
 
-	def initialize()
-
+	def initialize(expr_p)
+		@expression_pointer = expr_p
 	end
 
 	def apply_operator
-		raise CannotCalculateError
+		raise CannotCalculateError.new(@expression_pointer)
 	end
 
 	def to_s

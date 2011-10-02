@@ -39,7 +39,8 @@ class Prompt
 			output = "error, statement ignored".red
 		rescue CannotCalculateError
 			output = "cannot be calculated atm".red
-		rescue ArgumentError
+		rescue ArgumentError => error
+			debug error.to_s	
 			output = "wrong number of arguments".red
 		rescue NameError => error
 			debug error.to_s
@@ -54,13 +55,11 @@ class Prompt
 				"\tunless you know, what you do, use '<<' instead of '=' as assignment operator!\n".red +
 				"\t\t'=' does most likely NOT behave as you expect it to do.\n".red + output; end
 
-		last_line = ""
 		output.each_line do |line|
 			puts get_out_prompt + line	
-			last_line = line
 		end
 
-		return last_line
+		return output
 
 	end
 
@@ -77,9 +76,10 @@ class Prompt
 	
 			unless ignore_next # to prevent umlauts from messing up the string
 			case ch
-				when 195 then ignore_next = true # umlaut kommt
-				when 27 then #arrow
-				when 91 then #arrow
+				when 195 then ignore_next = true # umlaut comes
+				when 27 then ignore_next = true # arrow comes
+				#when 91 then #arrow
+				#	debug "["
 				when 65 then #up
 					debug "arrow up"
 					if !@history.nil? && @pointer > 0	
@@ -105,8 +105,8 @@ class Prompt
 						print get_in_prompt + str
 					end
 
-				when 67 then #left - ignore
-				when 68 then #right - ignore
+				when 67 then #right - ignore
+				when 68 then #left - ignore
 				when 127 then print "\b \b" if str != ""; str.chop!
 				else print ch.chr; str << ch.chr; debug "#{ch} added to str"
 			end

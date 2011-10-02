@@ -83,6 +83,21 @@ class PromptTest < Test::Unit::TestCase
 		assert_equal "(3 + c)", @prompt.do_cycle("a.u")
 	end
 
+
+	def test_function
+		
+		@prompt = Prompt.new
+
+		@prompt.do_cycle("a << e+f")
+		@prompt.do_cycle("f << g*h")
+
+		result = ""
+		(-9..11).each {|elem| result << "#{elem}\n"}
+		result.chop!
+		assert_equal result, @prompt.do_cycle("a[g,-10..10]")
+
+	end
+
 	def test_history
 		
 		@prompt = Prompt.new
@@ -95,5 +110,6 @@ class PromptTest < Test::Unit::TestCase
 		assert_equal his.inspect, @prompt.do_cycle(his[2])
 
 	end
+
 
 end

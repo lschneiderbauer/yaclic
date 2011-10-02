@@ -26,12 +26,19 @@ Ascii-Symbols can be used to represent a combination of operations with other sy
 The syntax is as you would expect it (like writing a formula on the paper), but more to it in the \fBUSAGE\fP section.
 Symbol-based simplifiing or equation-solving is not supported and most likely never will be.
 .TP
+.B Expressions as functions
+Expressions assigned to symbols can be used as function of another symbols.
+For example, it's possible to iterate through a range of values and print the results in one step.
+For detailed information see the []-operator.
+More useful features are planned in this regard (like function plotting).
+.TP
 .B Support for common constants
 You can use constants like PI or E as symbols.
 You should refer to them as 'pi' and 'ee'.
 .TP
 .B Colored output
 Just colored output to enhance the reader-eye's comfort.
+If you just want the good old plain uncolored output, you can switch with the '$colored = false' command.
 .TP
 .B Input history
 The history works like the bash history.
@@ -61,6 +68,14 @@ The symbol 'b' is linked to an expression held by 'a'.
 If you look at 'a' and are interested in the resolved linkage tree, you can use 'a.u', which will give you '((e * f) + d)'.
 Again the next example should make the difference clear.
 
+.SS '[]' for calculating a range of values
+Let's define a symbol 'f << x**2 + b'.
+We can now look at it from a more 'functional' perspective and say 'f' is a function dependend on 'x' with a constant 'b'.
+If we want to print some values of 'f', we can write 'f[x,-5..5,1]'.
+The first parameter defines the independent variable, the second the used range of values and the third the step-size (optional defaulting to 1).
+The symbol 'b' is not mentioned at all, which means, it is constant.
+If 'b' (or other constants) is (/are) undefined, it'll default to 1.
+Output will be something like '26 17 10 5 2 1 2 5 10 17 26'.
 
 .SH
 EXAMPLE
@@ -112,7 +127,7 @@ Print Yaclic version and release date
 .TP
 .B {expression}
 An expression (without curly brackets) can directly be passed through to the calculators evaluator.
-After evaluating, yac will terminate immediatly.
+After evaluating, yaclic will terminate immediatly.
 
 .SH BUGS
 The program is in its very early stage.

@@ -5,6 +5,7 @@ class ExpressionPointer
 		@sym = sym
 	end
 
+	# assignment operator
 	def <<(other)
 		#TODO check for loops etc!
 
@@ -18,6 +19,40 @@ class ExpressionPointer
 
 		return self
 	end
+
+	# use as function with x-range
+	def [](expr_p,range,step=1)
+
+		# set up new environment
+		# TOOD: reserve keywords with ___
+		old_colored = $colored	
+		$colored = false
+		bind = Environment.new(nil).env
+		eval("___function << #{self.u}",bind)
+
+		# set all unset variables to 1
+		eval("#{expr_p.to_s(false,false)} << 1",bind)
+
+		go = false
+		until go do
+			begin
+				eval("___function.c",bind)
+				go = true
+			rescue CannotCalculateError => error
+				eval("#{error.expr_p.to_s(false,false)} << 1",bind)
+			end
+		end
+	
+		ar = []
+		range.step(step) do |num|
+			eval("#{expr_p.to_s(false,false)} << #{num}",bind)
+			ar << eval("___function.c",bind)
+		end
+		$colored = old_colored
+
+		return ar.map{|e| e.green.bold }.join "\n"
+	end
+
 
 	def -@;	ExpressionPointer.new(OperatorAddInv.new(self));	end
 	def +@;	self;	end
@@ -33,15 +68,12 @@ class ExpressionPointer
 
 	# operation-node
 	def operation
-		@operation || OperatorNil.new
+		@operation || OperatorNil.new(self)
 	end
 
 	# calculate
 	def calculate
 		"#{operation.apply_operator}".bold.green
-	#rescue CannotCalculateException
-	#	operation.to_s
-	#	@name.to_s
 	end
 
 	def unfold	# unfold all pointers
