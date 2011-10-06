@@ -1,7 +1,7 @@
 class OperatorSin < Expression
 
 	def to_s(unfold=false) # ignore
-		"sin(".white.bold + @operand1.to_s(unfold) + ")".white.bold
+		"sin(".white.bold + @operand1.to_s(false,unfold) + ")".white.bold
 	end
 
 	def apply_operator
