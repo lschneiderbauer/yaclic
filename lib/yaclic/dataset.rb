@@ -38,18 +38,11 @@ class Dataset
 			# plot some stuff
 			Gnuplot.open do |gp|
 				Gnuplot::Plot.new gp do |plot|
-					#plot.title "blah"
-					#plot.ylabel "y"
-					#plot.xlabel "x"
-
-					x = []
-					y = []
-					@set.each do |key,value|
-
-					end
+					plot.grid
 
 					plot.data << Gnuplot::DataSet.new(@set) do |ds|
 						ds.with = "linespoints"
+						ds.linewidth = 2
 						ds.notitle
 					end 
 				end
