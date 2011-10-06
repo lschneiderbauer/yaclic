@@ -4,10 +4,12 @@ class Dataset
 
 		# set up new environment
 		# TOOD: reserve keywords with ___
+		# TODO: throw errors on weird wrong parameters
 		old_colored = $colored	
 		$colored = false
 		env = Environment.new
 		env.evaluate "___function << #{f.u}"
+		debug f.u
 
 		# set all unset variables to 1
 		env.evaluate "#{var.to_s(false,false)} << 1"

@@ -88,7 +88,11 @@ class ExpressionPointer
 				end
 			end
 		else
-			get_operation_s(true)
+			if operation.is_a? OperatorNum
+				get_sym_s
+			else
+				get_operation_s(true)
+			end
 		end
 
 	end

@@ -65,7 +65,7 @@ class PromptTest < Test::Unit::TestCase
 
 	def test_4
 		prep
-		assert_equal "(3 + c)", @prompt.do_cycle("a.to_s(true,true)")
+		assert_equal "(b + c)", @prompt.do_cycle("a.to_s(true,true)")
 	end
 
 	def test_5
@@ -80,7 +80,7 @@ class PromptTest < Test::Unit::TestCase
 
 	def test_7
 		prep
-		assert_equal "(3 + c)", @prompt.do_cycle("a.u")
+		assert_equal "(b + c)", @prompt.do_cycle("a.u")
 	end
 
 
