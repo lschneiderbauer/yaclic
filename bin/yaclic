@@ -12,7 +12,7 @@ $LOAD_PATH << ABS_PATH + "lib/"
 
 require 'yaclic'
 
-$debug = true
+$debug = false
 $colored = true
 
 prompt = Prompt.new
