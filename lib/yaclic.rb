@@ -31,6 +31,4 @@ require 'yaclic/operators/operator_mul_inv'
 require 'yaclic/constants/const_pi'
 require 'yaclic/constants/const_e'
 
-
 require 'yaclic/environment'
-require 'yaclic/prompt'

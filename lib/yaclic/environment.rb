@@ -1,3 +1,7 @@
+# This class forms the calculating 'kernel'.
+# Central is the Environment#evaluate method, where you can pass
+# your input (e.g. 'a << b+c') and you get back a string with the
+# appropriate response.
 class Environment
 	include Math
 
