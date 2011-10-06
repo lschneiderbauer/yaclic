@@ -1,32 +1,33 @@
 class Environment
 	include Math
 
-	def initialize(prompt)
-		@prompt = prompt
+	def initialize
 
 		# initialize environment variables/constants
+		@history = History.new	
+
 		@pi = ExpressionPointer.new(ConstPi.new)
 		@ee = ExpressionPointer.new(ConstE.new)
 	end
 	
-	def env
-		return binding
+	def evaluate(str)
+		@history.push!(str)
+		___silent_eval(str)
 	end
 
 	def method_missing(sym, *args)
 
 		debug "method_missing for #{sym}"
 		if sym.to_s =~ /^.*/	# if method-name is ascii ..
-			if eval("@#{sym}.nil?",self.env)
+
+			if ___silent_eval "@#{sym}.nil?"
 
 				# create new variable with ExpressionPointer
-				eval("@#{sym} = ExpressionPointer.new(nil,:#{sym})",self.env)
+				___silent_eval "@#{sym} = ExpressionPointer.new(nil,:#{sym})"
 
-				debug("new expression pointer initialized: #{eval("@#{sym}")}",1)	
-			else
-				debug("expression pointer in use",1)
 			end
-			return eval("@#{sym}",self.env)
+
+			return ___silent_eval "@#{sym}"
 		end
 
 	end
@@ -49,12 +50,11 @@ class Environment
 	end
 
 	def history
-		"#{@prompt.history.inspect}".cyan
+		@history
 	end
 
 	def help
 		# opens man-page
-		#`man yac`
 		system "man yaclic"
 
 		"Here you are.".cyan
@@ -66,6 +66,17 @@ class Environment
 
 	def test
 		"Okay.".cyan
+	end
+
+
+	private
+
+	def ___silent_eval(str)
+		eval(str,___env)
+	end
+
+	def ___env
+		return binding
 	end
 
 end

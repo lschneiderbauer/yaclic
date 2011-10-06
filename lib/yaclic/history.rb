@@ -2,30 +2,46 @@ class History
 
 	def initialize
 		@ar = []
-		@pointer = 0
+		@pointer = -1
 	end
 
 	def push!(str)
-		@ar.push(str) if str != ""	
-		@pointer += 1
+
+		silent_push!(str)
+		@pointer = @ar.size
 	end
 
-	def up!
-		@pointer -= 1 if @pointer > 0
-		@ar[@pointer].clone
+	def silent_push!(str)
+
+		# cleanup each push
+		@ar.delete("")
+
+		if @ar.last != str
+			@ar.push(str)
+		end
+
 	end
 
-	def down!
-		@pointer += 1 if @pointer < @ar.size && !@ar.nil?
+	def up!(n=1)
+		n.times { @pointer -= 1 if @pointer > 0 }
 		@ar[@pointer].nil? ? "" : @ar[@pointer].clone
 	end
 
-	def to_s(current=false)	
-		unless current
-			@ar.inspect.cyan
-		else
-			@ar[@pointer]
-		end
+	def down!(n=1)
+		n.times { @pointer += 1 if @pointer < @ar.size-1 && !@ar.nil? }
+		@ar[@pointer].nil? ? (@ar[@pointer-1].nil? ? "" : @ar[@pointer-1].clone) : @ar[@pointer].clone
+	end
+
+	def down?
+		(@pointer >= @ar.size-1)
+	end
+
+	def to_s
+		@ar.inspect.cyan
+	end
+
+	def to_a
+		@ar.clone
 	end
 
 end

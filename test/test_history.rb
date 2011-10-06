@@ -23,7 +23,30 @@ class HistoryTest < Test::Unit::TestCase
 		@ar.each {|e| his.push! e}
 		his.push! ""
 
+		assert_equal @ar.push("").inspect, "#{his}"
+	end
+
+	def test_push_3
+
+		his = History.new
+		@ar.each {|e| his.push! e}
+
+		his.up!
+		his.up!
+		his.push! "blubb"
+
+		assert_equal "blubb", his.up!
+	end
+
+	def test_push_4
+
+		his = History.new
+		@ar.each {|e| his.push! e}
+
+		his.push! @ar.last
+
 		assert_equal @ar.inspect, "#{his}"
+
 	end
 
 	def test_up
@@ -35,6 +58,14 @@ class HistoryTest < Test::Unit::TestCase
 
 	end
 
+	def test_up_2
+		
+		his = History.new
+		@ar.each {|e| his.push! e}
+
+		assert_equal @ar[1], his.up!(2)
+
+	end
 
 	def test_down
 
@@ -50,7 +81,6 @@ class HistoryTest < Test::Unit::TestCase
 	
 	end
 
-	# last down should give ""
 	def test_down_2
 
 		his = History.new
@@ -59,7 +89,28 @@ class HistoryTest < Test::Unit::TestCase
 		his.up!
 		his.down!
 
-		assert_equal "", his.down!
+		assert_equal @ar.last, his.down!
+
+	end
+
+	def test_down_3
+
+		his = History.new
+		@ar.each {|e| his.push! e}
+
+		his.up!
+		his.up!
+		
+		assert_equal @ar.last, his.down!(2)
+
+	end
+
+	def test_to_a
+
+		his = History.new
+		@ar.each {|e| his.push! e}
+
+		assert_equal @ar, his.to_a
 
 	end
 

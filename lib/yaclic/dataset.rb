@@ -6,26 +6,26 @@ class Dataset
 		# TOOD: reserve keywords with ___
 		old_colored = $colored	
 		$colored = false
-		bind = Environment.new(nil).env
-		eval("___function << #{f.u}",bind)
+		env = Environment.new
+		env.evaluate "___function << #{f.u}"
 
 		# set all unset variables to 1
-		eval("#{var.to_s(false,false)} << 1",bind)
+		env.evaluate "#{var.to_s(false,false)} << 1"
 
 		go = false
 		until go do
 			begin
-				eval("___function.c",bind)
+				env.evaluate "___function.c"
 				go = true
 			rescue CannotCalculateError => error
-				eval("#{error.expr_p.to_s(false,false)} << 1",bind)
+				env.evaluate "#{error.expr_p.to_s(false,false)} << 1"
 			end
 		end
 	
 		@set = {}
 		range.step(step) do |num|
-			eval("#{var.to_s(false,false)} << #{num}",bind)
-			@set[num] = eval("___function.c",bind).to_f
+			env.evaluate "#{var.to_s(false,false)} << #{num}"
+			@set[num] = env.evaluate("___function.c").to_f
 		end
 		$colored = old_colored
 	end

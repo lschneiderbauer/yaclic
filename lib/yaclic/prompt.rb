@@ -1,13 +1,7 @@
 class Prompt
 
 	def initialize
-		@bind = Environment.new(self).env
-		@history = []
-		@pointer = 0
-	end
-
-	def history
-		@history.clone
+		@env = Environment.new
 	end
 
 
@@ -28,12 +22,12 @@ class Prompt
 			input = reads
 		else
 			input = arg
-			@history.push(input)
 			puts input
 		end
 
 		begin
-			output = "#{eval(input,@bind)}"
+			output = "#{@env.evaluate(input)}"
+
 		rescue SyntaxError, NoMethodError => error
 			debug error.to_s
 			output = "error, statement ignored".red
@@ -68,12 +62,9 @@ class Prompt
 
 	def reads
 		str = ""	
-		ch = 0
 		ignore_next = false
 
-		until ch.chr == "\r" do 
-			ch = get_char
-
+		until (ch = get_char).chr == "\r" do 
 			debug ch
 	
 			unless ignore_next # to prevent umlauts from messing up the string
@@ -81,35 +72,32 @@ class Prompt
 				when 3 then # strg + c (simulate quit)
 					print "quit"
 					str << "quit"
-					ch = 13
+					ch.chr = "\r"
 
 				when 195 then ignore_next = true # umlaut comes
 				when 27 then ignore_next = true # arrow comes
 				#when 91 then #arrow
 				when 65 then #up
 					debug "arrow up"
-					if !@history.nil? && @pointer > 0	
 
-						if @pointer == @history.size && str != ""  # the last saving
-							@history.push(str)
-						end
-
-						@pointer -= 1
-
-						reset_text(str)
-						str = @history[@pointer].clone
-						print get_in_prompt + str
+					# add the current string if needed
+					if @env.history.down?
+						debug "down"
+						@env.history.silent_push!(str) 
 					end
+
+					reset_text(str)
+					str = @env.history.up!
+					print get_in_prompt + str
+
 
 				when 66 then #down
 					debug "arrow down"
-					if !@history.nil? && @pointer <= @history.size-1
-						@pointer += 1
+					
+					reset_text(str)
+					str = @env.history.down!
+					print get_in_prompt + str
 
-						reset_text(str)
-						str = (@pointer != @history.size ? @history[@pointer].clone : "")
-						print get_in_prompt + str
-					end
 
 				when 67 then #right - ignore
 				when 68 then #left - ignore
@@ -123,9 +111,6 @@ class Prompt
 		end
 		print "\n"
 
-		@history.push(str.strip) if str.strip != "" # history
-		debug "new history: #{@history.inspect}"
-		@pointer = @history.size
 		return str
 	end
 
