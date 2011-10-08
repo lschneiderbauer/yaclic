@@ -88,7 +88,7 @@ class ExpressionPointer
 				end
 			end
 		else
-			if operation.is_a? OperatorNum
+			if operation.is_a? OperatorNum and !@sym.nil?
 				get_sym_s
 			else
 				get_operation_s(true)
