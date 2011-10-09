@@ -6,7 +6,7 @@ class Environment
 	include Math
 
 	def initialize
-
+	
 		# initialize environment variables/constants
 		@history = History.new	
 
@@ -34,16 +34,6 @@ class Environment
 			return ___silent_eval "@#{sym}"
 		end
 
-	end
-
-
-	# (global) calculator operations
-	# ====================================
-	def sin(expr_p)
-		ExpressionPointer.new(OperatorSin.new(expr_p))
-	end
-	def cos(expr_p)
-		ExpressionPointer.new(OperatorCos.new(expr_p))
 	end
 
 
@@ -81,6 +71,16 @@ class Environment
 
 	def ___env
 		return binding
+	end
+
+end
+
+# dynamically map Math methods to Environment methods
+::MATH_METHODS.each do |m|
+	Environment.class_eval do
+		define_method m do |expr_p|
+			eval "ExpressionPointer.new(Operator#{m.to_s.capitalize}.new(expr_p))"
+		end
 	end
 
 end

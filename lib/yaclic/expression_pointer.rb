@@ -35,9 +35,6 @@ class ExpressionPointer
 	def /(other);	self.*(ExpressionPointer.new(OperatorMulInv.new(other)));	end
 	def **(other);	ExpressionPointer.new(OperatorPow.new(self,other));	end
 
-	def sin;	ExpressionPointer.new(OperatorSin.new(self));	end
-	def cos;	ExpressionPointer.new(OperatorCos.new(self));	end
-
 	# operation-node
 	def operation
 		@operation || OperatorNil.new(self)
@@ -116,4 +113,12 @@ class ExpressionPointer
 		end
 	end
 
+end
+
+::MATH_METHODS.each do |m|
+	ExpressionPointer.class_eval do
+		define_method m do
+			eval "ExpressionPointer.new(Operator#{m.to_s.capitalize}.new(self))"
+		end
+	end
 end
