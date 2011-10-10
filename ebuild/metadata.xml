@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE catmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
-<catmetadata>
-<longdescription lang="en">
-</longdescription>
-</catmetadata>
+<!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
-<name>Lukas Schneiderbauer</name>
-<email>lukas.schneiderbauer@gmail.com</email>
+	<maintainer>
+		<email>lukas.schneiderbauer@gmail.com</email>
+		<name>Lukas Schneiderbauer</name>
+	</maintainer>
+	<use>
+		<flag name='gnuplot'>Adds support for function plots via gnuplot</flag>	
+	</use>
 </pkgmetadata>

@@ -12,4 +12,6 @@ Gem::Specification.new do |s|
 					"lib/yaclic/*.rb","lib/*.rb","bin/*","test/*"].to_a
 	s.homepage	=	"http://vootey.github.com/yaclic/"
 
+	s.add_dependency('gnuplot', '>= 2.2')
+
 end
