@@ -1,3 +1,6 @@
+# define this class in ruby 1.8 (since it is used in 1.9 for domain errors)
+class Math::DomainError < Exception; end if RUBY_VERSION < "1.9"
+
 class Prompt
 
 	def initialize
@@ -41,6 +44,8 @@ class Prompt
 			output = "error, use lower case letters as symbols".red
 		rescue ZeroDivisionError
 			output = "cannot divide by 0".red
+		rescue Errno::EDOM, Math::DomainError
+			output = "numerical argument is out of domain".red
 		end
 
 		# for safety reasons, print a warning if using the '=' character
