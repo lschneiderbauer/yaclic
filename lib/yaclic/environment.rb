@@ -128,4 +128,10 @@ end
 end
 
 # undefine interfering methods
-undef p
+('a'..'z').each do |c|
+	begin
+		Environment.class_eval("undef :#{c}")
+	rescue NameError
+		debug "cannot undefine #{c}"
+	end
+end
