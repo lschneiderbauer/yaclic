@@ -32,20 +32,22 @@ class Prompt
 			output = "#{@env.evaluate(input)}"
 
 		rescue SyntaxError, NoMethodError => error
-			debug error.to_s
-			output = "error, statement ignored".red
+			debug "#{error.class} | #{error}"
+			output = "Error, statement ignored".red
 		rescue CannotCalculateError
-			output = "cannot be calculated atm".red
+			output = "Cannot be calculated atm".red
 		rescue ArgumentError => error
 			debug error.to_s	
-			output = "wrong number of arguments".red
+			output = "Wrong number of arguments".red
 		rescue NameError => error
 			debug error.to_s
-			output = "error, use lower case letters as symbols".red
+			output = "Use lower case letters as symbols".red
 		rescue ZeroDivisionError
-			output = "cannot divide by 0".red
+			output = "Cannot divide by 0".red
 		rescue Errno::EDOM, Math::DomainError
-			output = "numerical argument is out of domain".red
+			output = "Numerical argument is out of domain".red
+		rescue SystemStackError
+			output = "You seem to have a loop somewhere. Fix that!".red
 		end
 
 		# for safety reasons, print a warning if using the '=' character
