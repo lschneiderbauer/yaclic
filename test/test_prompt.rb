@@ -112,5 +112,40 @@ class PromptTest < Test::Unit::TestCase
 
 	end
 
+	def test_implicite_multiplication
+		@prompt = Prompt.new
+
+		assert_equal "(4 * a)", @prompt.do_cycle("4a")
+	end
+
+	def test_implicite_multiplication_2
+		@prompt = Prompt.new
+
+		assert_equal "(b / (7 * c))", @prompt.do_cycle("b/7c")
+	end
+
+	def test_implicite_multiplication_3
+		@prompt = Prompt.new
+
+		assert_equal "(a * (b * c))", @prompt.do_cycle("a b c")
+	end
+
+	def test_implicite_multiplication_4
+		@prompt = Prompt.new
+
+		assert_equal "((a + b) * c)", @prompt.do_cycle("(a+b)c")
+	end
+
+	def test_word
+		@prompt = Prompt.new
+
+		assert_equal "((a * b) * c)", @prompt.do_cycle("abc")
+	end
+
+	def test_word_2
+		@prompt = Prompt.new
+
+		assert_equal "_abc", @prompt.do_cycle("_abc")
+	end
 
 end

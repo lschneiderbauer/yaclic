@@ -10,12 +10,14 @@ class Environment
 		# initialize environment variables/constants
 		@history = History.new	
 
-		@pi = ExpressionPointer.new(ConstPi.new)
-		@ee = ExpressionPointer.new(ConstE.new)
+		@_pi = ExpressionPointer.new(ConstPi.new)
+		@_ee = ExpressionPointer.new(ConstE.new)
 	end
 	
 	def evaluate(str)
 		@history.push!(str)
+
+		str = ___preprocess_input(str)
 		___silent_eval(str)
 	end
 
@@ -24,14 +26,46 @@ class Environment
 		debug "method_missing for #{sym}"
 		if sym.to_s =~ /^.*/	# if method-name is ascii ..
 
-			if ___silent_eval "@#{sym}.nil?"
+			syms = []
 
-				# create new variable with ExpressionPointer
-				___silent_eval "@#{sym} = ExpressionPointer.new(nil,:#{sym})"
+			# only take a >1 character if the string begins with "_"
+			if sym.to_s.chars.first == "_"
+				syms = [sym]
+			else
+				syms = sym.to_s.chars.to_a
+			end
+
+			# create each ExpressionPointer
+			expr = nil
+			syms.each do |s|
+
+				if ___silent_eval "@#{s}.nil?"
+	
+					# create new variable with ExpressionPointer
+					expr = ___silent_eval "@#{s} = ExpressionPointer.new(nil,:#{s})"
+
+				else
+
+					expr = ___silent_eval "@#{s}"
+
+				end
 
 			end
 
-			return ___silent_eval "@#{sym}"
+			# and concat them with multiplications (or if just one, leave it)
+			expr = ___silent_eval syms.join("*") if syms.count > 1
+
+			# got another expression_pointer as argument?
+			if !args.empty? && (args[0].is_a?(ExpressionPointer) || args[0].is_a?(Numeric))
+
+				# do multiplication and return the result
+				return expr*args[0]
+
+			else # otherwise just return the object
+				return expr
+			end
+
+
 		end
 
 	end
@@ -69,6 +103,14 @@ class Environment
 		eval(str,___env)
 	end
 
+	def ___preprocess_input(str)
+		# add "*" if
+		# - paranthesis (must look away from letter) next to letter then
+		# - letters separated with whitespace are next to each other
+		# - numbers ...
+		str
+	end
+
 	def ___env
 		return binding
 	end
@@ -84,3 +126,6 @@ end
 	end
 
 end
+
+# undefine interfering methods
+undef p

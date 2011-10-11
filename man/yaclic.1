@@ -38,7 +38,7 @@ The Gnuplot ruby bindings (and gnuplot of course) have to be installed, if you w
 .TP
 .B Support for common constants
 You can use constants like PI or E as symbols.
-You should refer to them as 'pi' and 'ee'.
+You should refer to them as '_pi' and '_ee'.
 .TP
 .B Colored output
 Just colored output to enhance the reader-eye's comfort.
@@ -57,6 +57,10 @@ However, as always there are a few rules, you have to stick on to.
 Due to technical reasons, it is used '<<' instead of '=' as assignment operator.
 Meaning, instead of 'a=b+d' it has to be written 'a<<b+d'; say 'a' holds the expression 'b+d'.
 In some way, this nomenclature is even better, as it cannot mislead you to think of the character as a comparator.
+
+.SS '_'-prefix for word-symbols
+If you want to use a whole word as symbol, you have to prefix it with the '_' character.
+For example, the expression '_foo' would create a symbol '_foo', but 'foo' will create something like '(f * o) * o)'.
 
 .SS '.c' for real \fIc\fPalculation
 Let's use the case from above: 'a<<b+d'.
