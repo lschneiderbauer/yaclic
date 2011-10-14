@@ -51,6 +51,8 @@ class Float
 		self.to_s.to_r / other
 	end
 
+	alias cf to_f
+
 end
 
 class Rational
