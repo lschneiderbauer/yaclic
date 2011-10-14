@@ -34,7 +34,7 @@ class PromptTest < Test::Unit::TestCase
 		@prompt.do_cycle("x << g")
 		@prompt.do_cycle("y << 2**3")
 
-		assert_equal 95.625.to_s , @prompt.do_cycle("f.c")
+		assert_equal 95.625.to_s , @prompt.do_cycle("f.cf")
 
 	end
 

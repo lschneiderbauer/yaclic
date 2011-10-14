@@ -34,7 +34,6 @@ class ExpressionPointer
 	def *(other);	ExpressionPointer.new(OperatorMul.new(self,other));	end
 	def /(other);	self.*(ExpressionPointer.new(OperatorMulInv.new(other)));	end
 	def **(other);	ExpressionPointer.new(OperatorPow.new(self,other));	end
-	def ^(other);	self.**(other);	end
 
 	# operation-node
 	def operation
@@ -50,9 +49,14 @@ class ExpressionPointer
 		self.to_s(false,true)
 	end
 
+	def to_float
+		"#{operation.apply_operator.to_f}".bold.green
+	end
+
 
 	alias n operation
 	alias c calculate
+	alias cf to_float
 	alias u unfold
 
 

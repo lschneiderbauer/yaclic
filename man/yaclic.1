@@ -27,6 +27,11 @@ Ascii-Symbols can be used to represent a combination of operations with other sy
 The syntax is as you would expect it (like writing a formula on the paper), but more to it in the \fBUSAGE\fP section.
 Symbol-based simplifiing or equation-solving is not supported and most likely never will be.
 .TP
+.B Use of rationals
+Rational numbers are preferred to floats.
+Whereever rationals can reasonably be used, they will be used.
+This calculator is not about speed, it's more about accuracy and readability.
+.TP
 .B Expressions as functions
 Expressions assigned to symbols can be used as function of another symbols.
 For example, it's possible to iterate through a range of values and print the results in one step.
@@ -69,6 +74,9 @@ Of course, 'b' and 'd' could again hold other expressions or even real numbers.
 If both are real numbers (e.g. b<<4, d<<3), you might eventually be interested in seeing, what the real solution is.
 This can be accomplished with the '.c' suffix: 'a.c' gives '7'.
 The example beneath reflects that.
+
+.SS '.cf' for float calculation
+This is the same as '.c' with the difference, that the result will always be a float number, not a rational.
 
 .SS '.u' for \fIu\fPnfolding the expression
 We continue our example and discuss the case, that 'b' holds another expression, let's say, '(e * f)'.

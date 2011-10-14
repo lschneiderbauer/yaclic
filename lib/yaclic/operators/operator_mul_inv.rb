@@ -5,7 +5,8 @@ class OperatorMulInv < Expression
 	end
 
 	def apply_operator
-		1.to_f/@operand1.operation.apply_operator
+		1.quo @operand1.operation.apply_operator
+		#1.to_f/@operand1.operation.apply_operator
 	end
 
 end
