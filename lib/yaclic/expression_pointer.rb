@@ -12,7 +12,7 @@ class ExpressionPointer
 		@operation = 
 		if other.is_a? ExpressionPointer
 			other.operation
-		else other.is_a? Numeric
+		elsif other.is_a? Numeric
 			debug "numeric value recognized"
 			OperatorNum.new(other)
 		end
