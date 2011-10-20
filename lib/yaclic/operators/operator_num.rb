@@ -22,7 +22,7 @@ class String
 	def to_r
 		ar = self.split(".") # maybe it's a float
 		
-		r = Rational(ar[0].to_i)
+		r = Rational(ar[0].to_i.abs)
 		if !ar[1].nil?
 
 			r += Rational(ar[1].to_i, 10**ar[1].length)
@@ -34,6 +34,9 @@ class String
 				r /= ar[1].to_i
 			end
 		end
+
+		r = -r if self[0,1] == "-" 	# otherwise the - would vanish
+
 		return r
 	end
 

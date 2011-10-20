@@ -28,7 +28,7 @@ class Dataset
 		@set = {}
 		range.step(step) do |num|
 			env.evaluate "#{var.to_s(false,false)} << #{num}"
-			@set[num] = env.evaluate("___function.c").to_f
+			@set[num] = env.evaluate("___function.cf").to_f
 		end
 		$colored = old_colored
 	end
