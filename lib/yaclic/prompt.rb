@@ -120,7 +120,7 @@ class Prompt
 		end
 		print "\n"
 
-		return str
+		return str.chomp!
 	end
 
 	def get_char
