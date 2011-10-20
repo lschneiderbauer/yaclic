@@ -1,3 +1,4 @@
+module Yaclic
 class ExpressionPointer
 
 	def initialize(operation=nil,sym=nil)
@@ -126,4 +127,5 @@ end
 			eval "ExpressionPointer.new(Operator#{m.to_s.capitalize}.new(self))"
 		end
 	end
+end
 end

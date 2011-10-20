@@ -1,3 +1,4 @@
+module Yaclic
 class OperatorAdd < BinaryOperator
 
 	def ops
@@ -8,4 +9,5 @@ class OperatorAdd < BinaryOperator
 		@operand1.operation.apply_operator + @operand2.operation.apply_operator
 	end
 
+end
 end

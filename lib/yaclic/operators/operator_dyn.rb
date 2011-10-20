@@ -1,5 +1,6 @@
 # Map Math-functions to Operator-classes
 
+module Yaclic
 ::MATH_METHODS.each do |m|
 
 	# create new class
@@ -18,4 +19,5 @@
 		end
 	end
 
+end
 end

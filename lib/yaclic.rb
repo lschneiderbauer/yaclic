@@ -36,3 +36,4 @@ require 'yaclic/constants/const_e'
 
 # Environment
 require 'yaclic/environment'
+require 'yaclic/kernel'

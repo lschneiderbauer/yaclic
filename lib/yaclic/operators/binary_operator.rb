@@ -1,3 +1,4 @@
+module Yaclic
 class BinaryOperator < Expression
 
 	def to_s(unfold=false)
@@ -8,4 +9,5 @@ class BinaryOperator < Expression
 		")".blue.bold
 	end
 
+end
 end

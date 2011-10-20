@@ -1,24 +1,16 @@
-# This class forms the calculating 'kernel'.
-# Central is the Environment#evaluate method, where you can pass
-# your input (e.g. 'a << b+c') and you get back a string with the
-# appropriate response.
+module Yaclic
 class Environment
 	include Math
 
 	def initialize
 	
 		# initialize environment variables/constants
-		@history = History.new	
-
 		@_pi = ExpressionPointer.new(ConstPi.new)
 		@_ee = ExpressionPointer.new(ConstE.new)
 	end
 	
 	def evaluate(str)
-		@history.push!(str)
-
-		str = ___preprocess_input(str)
-		___silent_eval(str)
+		eval(str,binding)
 	end
 
 	def method_missing(sym, *args)
@@ -39,21 +31,21 @@ class Environment
 			expr = nil
 			syms.each do |s|
 
-				if ___silent_eval "@#{s}.nil?"
+				if self.evaluate "@#{s}.nil?"
 	
 					# create new variable with ExpressionPointer
-					expr = ___silent_eval "@#{s} = ExpressionPointer.new(nil,:#{s})"
+					expr = self.evaluate "@#{s} = ExpressionPointer.new(nil,:#{s})"
 
 				else
 
-					expr = ___silent_eval "@#{s}"
+					expr = self.evaluate "@#{s}"
 
 				end
 
 			end
 
 			# and concat them with multiplications (or if just one, leave it)
-			expr = ___silent_eval syms.join("*") if syms.count > 1
+			expr = self.evaluate syms.join("*") if syms.count > 1
 
 			# got another expression_pointer as argument?
 			if !args.empty? && (args[0].is_a?(ExpressionPointer) || args[0].is_a?(Numeric))
@@ -77,10 +69,6 @@ class Environment
 		exit
 	end
 
-	def history
-		@history
-	end
-
 	def help
 		# opens man-page
 		system "man yaclic"
@@ -94,25 +82,6 @@ class Environment
 
 	def test
 		"Okay.".cyan
-	end
-
-
-	private
-
-	def ___silent_eval(str)
-		eval(str,___env)
-	end
-
-	def ___preprocess_input(str)
-		# add "*" if
-		# - paranthesis (must look away from letter) next to letter then
-		# - letters separated with whitespace are next to each other
-		# - numbers ...
-		str
-	end
-
-	def ___env
-		return binding
 	end
 
 end
@@ -134,4 +103,5 @@ end
 	rescue NameError
 		debug "cannot undefine #{c}"
 	end
+end
 end

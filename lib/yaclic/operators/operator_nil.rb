@@ -1,3 +1,4 @@
+module Yaclic
 class OperatorNil < Expression
 
 	def initialize(expr_p)
@@ -11,4 +12,5 @@ class OperatorNil < Expression
 	def to_s
 		"nil".bold.red
 	end
+end
 end

@@ -2,6 +2,7 @@ require 'test/unit'
 require 'yaclic'
 
 class HistoryTest < Test::Unit::TestCase
+	include Yaclic
 
 	def setup
 		@ar = ["1234","789","foo bar #### and all"]

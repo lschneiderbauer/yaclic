@@ -1,3 +1,4 @@
+module Yaclic
 class History
 
 	def initialize
@@ -44,4 +45,5 @@ class History
 		@ar.clone
 	end
 
+end
 end

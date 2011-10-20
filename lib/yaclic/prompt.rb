@@ -4,7 +4,7 @@ class Math::DomainError < Exception; end if RUBY_VERSION < "1.9"
 class Prompt
 
 	def initialize
-		@env = Environment.new
+		@kernel = Yaclic::Kernel.new
 	end
 
 
@@ -29,12 +29,12 @@ class Prompt
 		end
 
 		begin
-			output = "#{@env.evaluate(input)}"
+			output = "#{@kernel.evaluate(input)}"
 
 		rescue SyntaxError, NoMethodError => error
 			debug "#{error.class} | #{error}"
 			output = "Error, statement ignored".red
-		rescue CannotCalculateError
+		rescue Yaclic::CannotCalculateError
 			output = "Cannot be calculated atm".red
 		rescue ArgumentError => error
 			debug error.to_s	
@@ -88,13 +88,13 @@ class Prompt
 					debug "arrow up"
 
 					# add the current string if needed
-					if @env.history.down?
+					if @kernel.history.down?
 						debug "down"
-						@env.history.silent_push!(str) 
+						@kernel.history.silent_push!(str) 
 					end
 
 					reset_text(str)
-					str = @env.history.up!
+					str = @kernel.history.up!
 					str = "(" + str + ")" unless (str.empty? || (str[0,1] == "(" && str[-1,1] == ")"))
 					print get_in_prompt + str
 
@@ -103,7 +103,7 @@ class Prompt
 					debug "arrow down"
 					
 					reset_text(str)
-					str = @env.history.down!
+					str = @kernel.history.down!
 					str = "(" + str + ")" unless (str.empty? || (str[0,1] == "(" && str[-1,1] == ")"))
 					print get_in_prompt + str
 

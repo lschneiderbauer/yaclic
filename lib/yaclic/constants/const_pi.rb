@@ -1,3 +1,4 @@
+module Yaclic
 class ConstPi < Expression
 
 	def to_s(ignore)
@@ -12,4 +13,5 @@ class ConstPi < Expression
 		Math::PI
 	end
 
+end
 end

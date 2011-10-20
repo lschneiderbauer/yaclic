@@ -2,6 +2,7 @@ require 'test/unit'
 require 'yaclic'
 
 class OperationTest < Test::Unit::TestCase
+	include Yaclic
 
 	def test_add
 		o = OperatorAdd.new(10,5)

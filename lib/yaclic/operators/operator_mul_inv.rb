@@ -1,3 +1,4 @@
+module Yaclic
 class OperatorMulInv < Expression
 
 	def to_s(unfold=false)
@@ -9,4 +10,5 @@ class OperatorMulInv < Expression
 		#1.to_f/@operand1.operation.apply_operator
 	end
 
+end
 end

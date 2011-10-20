@@ -1,3 +1,4 @@
+module Yaclic
 class Expression
 
 	def initialize(p1=nil,p2=nil)
@@ -28,4 +29,5 @@ class Expression
 	def o1; @operand1; end
 	def o2; @operand2; end
 
+end
 end

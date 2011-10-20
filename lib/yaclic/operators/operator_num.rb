@@ -1,3 +1,4 @@
+module Yaclic
 class OperatorNum < Expression
 
 	def initialize(p)
@@ -11,6 +12,7 @@ class OperatorNum < Expression
 	def apply_operator
 		@numeric
 	end
+end
 end
 
 

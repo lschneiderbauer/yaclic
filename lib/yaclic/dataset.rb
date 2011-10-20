@@ -1,3 +1,4 @@
+module Yaclic
 class Dataset
 
 	def initialize(f, var, range, step=1)
@@ -78,4 +79,5 @@ class Hash
 		[x,y].to_gplot
 	end
 
+end
 end

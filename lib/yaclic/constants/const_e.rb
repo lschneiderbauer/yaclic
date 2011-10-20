@@ -1,3 +1,4 @@
+module Yaclic
 class ConstE < Expression
 	
 	def to_s(ignore)
@@ -12,4 +13,5 @@ class ConstE < Expression
 		Math::E
 	end
 
+end
 end
