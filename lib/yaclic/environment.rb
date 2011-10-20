@@ -74,13 +74,18 @@ class Environment
 
 
 	def ___clone
+		#TODO: make a clean solution with clone-methods of objects!!
 		env = Environment.new
+
+		old_colored = $colored
+		$colored = false
 
 		# transfer all variables
 		@___vars.each do |sym|
-			#TODO: make a clean solution with clone-methods of objects!!
 			env.evaluate("#{sym} << #{self.evaluate("#{sym}")}")
 		end
+
+		$colored = old_colored
 
 		return env
 	end
