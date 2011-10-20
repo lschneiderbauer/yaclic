@@ -20,6 +20,10 @@ class Kernel
 		end
 	end
 
+	def set(sym, value)
+		@env.evaluate("#{sym} << #{value}")
+	end
+
 	def clone
 		Kernel.new(@history.clone, @env.___clone)	
 	end
