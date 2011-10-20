@@ -68,10 +68,12 @@ class Prompt
 	private
 
 	def reads
-		str = ""	
+		str = ""
+		ch = 0
 		ignore_next = false
 
-		until (ch = get_char).chr == "\r" do 
+		until ch.chr == "\r" do 
+			ch = get_char
 			debug ch
 	
 			unless ignore_next # to prevent umlauts from messing up the string
@@ -79,7 +81,7 @@ class Prompt
 				when 3 then # strg + c (simulate quit)
 					print "quit"
 					str << "quit"
-					ch.chr = "\r"
+					ch = 13		# = "\r"
 
 				when 195 then ignore_next = true # umlaut comes
 				when 27 then ignore_next = true # arrow comes
