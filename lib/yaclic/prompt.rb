@@ -95,7 +95,7 @@ class Prompt
 
 					reset_text(str)
 					str = @env.history.up!
-					str = "(" + str + ")" unless str.empty?
+					str = "(" + str + ")" unless (str.empty? || (str[0,1] == "(" && str[-1,1] == ")"))
 					print get_in_prompt + str
 
 
@@ -104,7 +104,7 @@ class Prompt
 					
 					reset_text(str)
 					str = @env.history.down!
-					str = "(" + str + ")" unless str.empty?
+					str = "(" + str + ")" unless (str.empty? || (str[0,1] == "(" && str[-1,1] == ")"))
 					print get_in_prompt + str
 
 
