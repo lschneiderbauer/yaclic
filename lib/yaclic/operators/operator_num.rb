@@ -48,7 +48,7 @@ end
 class Float
 
 	def /(other)
-		self.to_s.to_r / other
+		self.to_s.to_r / other.to_s.to_r
 	end
 
 	alias cf to_f
