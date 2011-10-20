@@ -64,6 +64,7 @@ class Dataset
 		@set.keys.sort.map{|key| @set[key].to_s.green.bold }.join "\n"
 	end
 end
+end
 
 class Hash
 	
@@ -79,5 +80,4 @@ class Hash
 		[x,y].to_gplot
 	end
 
-end
 end
