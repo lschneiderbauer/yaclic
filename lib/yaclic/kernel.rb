@@ -5,9 +5,9 @@ module Yaclic
 # appropriate response.
 class Kernel
 
-	def initialize
-		@history = History.new
-		@env = Environment.new
+	def initialize(history=nil,env=nil)
+		@history = (history || History.new)
+		@env = (env || Environment.new)
 	end
 
 	def evaluate(str)
@@ -20,13 +20,13 @@ class Kernel
 		end
 	end
 
+	def clone
+		Kernel.new(@history.clone, @env.___clone)	
+	end
+
 	def history
 		@history
 	end
-
-	#def clone
-	#
-	#end
 
 
 	private

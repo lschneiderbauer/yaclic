@@ -45,5 +45,15 @@ class History
 		@ar.clone
 	end
 
+
+	def clone
+		history = History.new
+
+		@ar.each do |entry|
+			history.push!(entry)
+		end
+
+		return history
+	end
 end
 end

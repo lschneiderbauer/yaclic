@@ -3,14 +3,21 @@ class Environment
 	include Math
 
 	def initialize
-	
+		
+		@___vars = []
+
 		# initialize environment variables/constants
 		@_pi = ExpressionPointer.new(ConstPi.new)
 		@_ee = ExpressionPointer.new(ConstE.new)
+
 	end
 	
 	def evaluate(str)
-		eval(str,binding)
+		#unless str[1,2] == "___"
+			eval(str,binding)
+		#else
+		#	"keywords beginning with '___' are reserved".red
+		#end
 	end
 
 	def method_missing(sym, *args)
@@ -36,6 +43,9 @@ class Environment
 					# create new variable with ExpressionPointer
 					expr = self.evaluate "@#{s} = ExpressionPointer.new(nil,:#{s})"
 
+					# and add it to the index
+					@___vars << s
+
 				else
 
 					expr = self.evaluate "@#{s}"
@@ -60,6 +70,19 @@ class Environment
 
 		end
 
+	end
+
+
+	def ___clone
+		env = Environment.new
+
+		# transfer all variables
+		@___vars.each do |sym|
+			#TODO: make a clean solution with clone-methods of objects!!
+			env.evaluate("#{sym} << #{self.evaluate("#{sym}")}")
+		end
+
+		return env
 	end
 
 
