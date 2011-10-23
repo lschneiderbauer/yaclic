@@ -9,7 +9,7 @@ class Dataset
 		old_colored = $colored	
 		$colored = false
 		env = Environment.new
-		env.evaluate "___function << #{f.u}"
+		env.evaluate "__function << #{f.u}"
 		debug f.u
 
 		# set all unset variables to 1
@@ -18,7 +18,7 @@ class Dataset
 		go = false
 		until go do
 			begin
-				env.evaluate "___function.c"
+				env.evaluate "__function.c"
 				go = true
 			rescue CannotCalculateError => error
 				env.evaluate "#{error.expr_p.to_s(false,false)} << 1"
@@ -28,7 +28,7 @@ class Dataset
 		@set = {}
 		range.step(step) do |num|
 			env.evaluate "#{var.to_s(false,false)} << #{num}"
-			@set[num] = env.evaluate("___function.cf").to_f
+			@set[num] = env.evaluate("__function.cf").to_f
 		end
 		$colored = old_colored
 	end

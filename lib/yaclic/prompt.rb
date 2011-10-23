@@ -36,6 +36,8 @@ class Prompt
 			output = "Error, statement ignored".red
 		rescue Yaclic::CannotCalculateError
 			output = "Cannot be calculated atm".red
+		rescue Yaclic::SymbolPreservedError
+			output = "Symbols with the '___'-prefix are preserved.".red
 		rescue ArgumentError => error
 			debug error.to_s	
 			output = "Wrong number of arguments".red

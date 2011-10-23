@@ -14,12 +14,15 @@ require 'yaclic/colored'
 require 'yaclic/dataset'
 require 'yaclic/history'
 
+# Exceptions
+require 'yaclic/operators/cannot_calculate_error'
+require 'yaclic/symbol_preserved_error'
+
 # Expressions
 require 'yaclic/expression_pointer'
 require 'yaclic/expression'
 
 # Operators
-require 'yaclic/operators/cannot_calculate_error'
 require 'yaclic/operators/operator_num'
 require 'yaclic/operators/operator_nil'
 require 'yaclic/operators/binary_operator'

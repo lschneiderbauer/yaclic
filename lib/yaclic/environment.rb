@@ -13,11 +13,11 @@ class Environment
 	end
 	
 	def evaluate(str)
-		#unless str[1,2] == "___"
+		unless str.include? "___"
 			eval(str,binding)
-		#else
-		#	"keywords beginning with '___' are reserved".red
-		#end
+		else
+			raise SymbolPreservedError.new
+		end
 	end
 
 	def method_missing(sym, *args)
@@ -66,7 +66,6 @@ class Environment
 			else # otherwise just return the object
 				return expr
 			end
-
 
 		end
 
