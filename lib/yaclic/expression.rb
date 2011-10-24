@@ -136,10 +136,7 @@ private
 		vars.each do |var|
 
 			ret <<
-			if var.nil?
-				raise ArgumentError
-	
-			elsif var.is_a? Numeric
+			if var.is_a? Numeric
 				@env.___create_ep(Expression.new(@env,:num,var))
 
 			elsif var.is_a? ExpressionPointer
