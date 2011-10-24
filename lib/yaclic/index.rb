@@ -2,12 +2,7 @@ module Yaclic
 class Index < Hash
 
 	def to_s
-		str = ""
-		self.each do |sym, ep|
-			str << "#{sym}".rjust(10).bold.cyan + " | ".blue + "#{ep.operation}\n"
-		end
-
-		return str
+		self.keys.map{|sym| "#{sym}".rjust(10).bold.cyan + " | ".blue + "#{@set[key].operation}" }.join "\n"
 	end
 
 end
