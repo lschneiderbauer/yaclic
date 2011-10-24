@@ -10,6 +10,12 @@ class ExpressionPointer
 		@sym = sym
 	end
 
+	# clone into new environment
+	#
+	def clone(new_env)
+		new_env.___create_ep(@expression.clone,@sym)	
+	end
+
 	# assignment operator
 	def <<(other)
 
