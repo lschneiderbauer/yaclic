@@ -5,11 +5,11 @@ class Environment
 	def initialize
 	
 		# list with expression pointers
-		@___index = {}
+		@index = Index.new
 
 		# initialize environment variables/constants
-		@___index[:_pi] = self.___create_ep(Expression.new(self,:const_pi))
-		@___index[:_ee] = self.___create_ep(Expression.new(self,:const_e))
+		@index[:_pi] = self.___create_ep(Expression.new(self,:const_pi))
+		@index[:_ee] = self.___create_ep(Expression.new(self,:const_e))
 
 	end
 	
@@ -36,14 +36,14 @@ class Environment
 		expr = nil
 		syms.each do |s|
 
-			unless @___index.include? s
+			unless @index.include? s
 	
 				# create new ExpressionPointer
 				expr = self.___create_ep(nil,s)
 	
 			else
 
-				expr = @___index[s]
+				expr = @index[s]
 
 			end
 
@@ -70,21 +70,20 @@ class Environment
 		ep = ExpressionPointer.new(self,operation,sym)
 
 		# add to index
-		@___index[sym] = ep unless sym.nil?
+		@index[sym] = ep unless sym.nil?
 
 		return ep
 	end
 
 	def ___destroy_ep(sym)
-		@___index.delete(sym) unless sym.nil?
+		@index.delete(sym) unless sym.nil?
 	end
 
 	def ___clone
-
 		env = Environment.new
 
-		@___index.each do |sym,ep|
-			ep.clone(env)
+		@index.each do |sym,ep|
+			ep.___clone(env)
 		end
 
 		return env
@@ -110,6 +109,10 @@ class Environment
 
 	def test
 		"Okay.".cyan
+	end
+
+	def index
+		@index
 	end
 
 end
