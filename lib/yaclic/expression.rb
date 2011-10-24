@@ -110,6 +110,14 @@ class Expression
 
 	end
 
+		
+	def clone
+		# because an Expression is somehow "immutable",
+		# we can just use the same object
+		#
+		self
+	end
+
 
 	def env
 		@env
