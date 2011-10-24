@@ -36,6 +36,21 @@ class Expression
 		end
 
 	end
+	
+	def ___clone(new_env)
+		Expression.new(new_env, @type, 
+			*case @type
+				when :add,:mul,:pow
+					[@bin1.___clone(new_env),@bin2.___clone(new_env)]
+				when *([:add_inv,:mul_inv,:nil]+MATH_METHODS)
+					[@una.___clone(new_env),nil]
+				when :num
+					[@num,nil]
+				else
+					[nil,nil]
+			end
+		)
+	end
 
 
 	def apply_operator
@@ -110,18 +125,6 @@ class Expression
 
 	end
 
-		
-	def clone
-		# because an Expression is somehow "immutable",
-		# we can just use the same object
-		#
-		self
-	end
-
-
-	def env
-		@env
-	end
 
 	def op_nil?
 		(@type == :nil)

@@ -12,11 +12,14 @@ class ExpressionPointer
 
 	# clone into new environment
 	#
-	def clone(new_env)
-		new_env.___create_ep(@expression.clone,@sym)	
+	def ___clone(new_env)
+
+		new_env.___create_ep( (@expression.nil? ? nil : @expression.___clone(new_env)), @sym )
+
 	end
 
 	# assignment operator
+	#
 	def <<(other)
 
 		@expression = 
@@ -27,7 +30,7 @@ class ExpressionPointer
 			Expression.new(@env,:num,other)
 
 		elsif other.nil?
-			@env.___destroy_ep(@sym)	
+			@env.___destroy_ep(@sym)
 			nil
 		end
 
@@ -36,8 +39,8 @@ class ExpressionPointer
 	end
 
 	# use as function with x-range
-	def [](expr_p,range,step=1)
-		Dataset.new(self,expr_p,range,step)
+	def [](ep,range,step=1)
+		Dataset.new(@env,@sym,ep.sym,range,step)
 	end
 
 
@@ -51,11 +54,18 @@ class ExpressionPointer
 	def **(other);	@env.___create_ep(Expression.new(@env,:pow,self,other));	end
 
 	# operation-node
+	#
 	def operation
 		@expression || Expression.new(@env,:nil,self)
 	end
 
+	def sym
+		@sym
+	end
+
+
 	# calculate
+	#
 	def calculate
 		"#{operation.apply_operator}".bold.green
 	end
@@ -83,6 +93,7 @@ class ExpressionPointer
 	# I admit, this code is a piece of shit,
 	# but at least it works, and the results are
 	# as I want them.
+	#
 	def to_s(unfold_first=true, unfold_all=false)
 	
 		if @sym.nil? && unfold_first

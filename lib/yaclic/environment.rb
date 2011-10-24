@@ -80,13 +80,13 @@ class Environment
 	end
 
 	def ___clone
-		env = Environment.new
+		new_env = Environment.new
 
 		@index.each do |sym,ep|
-			ep.___clone(env)
+			ep.___clone(new_env)
 		end
 
-		return env
+		return new_env
 	end
 
 

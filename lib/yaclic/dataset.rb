@@ -1,38 +1,41 @@
 module Yaclic
 class Dataset
 
-	def initialize(f, var, range, step=1)
+	def initialize(env, sym_f, sym_var, range, step)
 
-		# set up new environment
-		# TOOD: reserve keywords with ___
-		# TODO: throw errors on weird wrong parameters
-		old_colored = $colored	
-		$colored = false
-		env = Environment.new
-		env.evaluate "__function << #{f.u}"
-		debug f.u
+		# clone the whole environment
+		#
+		new_env = env.___clone
 
-		# set all unset variables to 1
-		env.evaluate "#{var.to_s(false,false)} << 1"
+
+		# default unset variables to 1
+		#
+		new_env.index[sym_var] << range.begin
 
 		go = false
-		until go do
-			begin
-				env.evaluate "__function.c"
-				go = true
-			rescue CannotCalculateError => error
-				env.evaluate "#{error.expr_p.to_s(false,false)} << 1"
-			end
-		end
-	
+		(begin
+			new_env.index[sym_f].cf
+			go = true
+
+		rescue CannotCalculateError => error
+			error.expr_p << 1
+
+		end) until go
+
+
+		# create the dataset
+		#
 		@set = {}
 		range.step(step) do |num|
-			env.evaluate "#{var.to_s(false,false)} << #{num}"
-			@set[num] = env.evaluate("__function.cf").to_f
+			new_env.index[sym_var] << num
+			@set[num] = new_env.index[sym_f].cf
 		end
-		$colored = old_colored
+
 	end
 
+	def set
+		@set
+	end
 
 	def plot
 
@@ -54,14 +57,14 @@ class Dataset
 			"Here you are.".cyan
 
 		else
-			"gnuplot support not available".red
+			"Gnuplot support is not available.".red
 		end
 
 	end
 
 
 	def to_s
-		@set.keys.sort.map{|key| @set[key].to_s.green.bold }.join "\n"
+		@set.keys.sort.map{|key| "#{key}".rjust(10).cyan + " | ".blue + @set[key].to_s.green.bold }.join "\n"
 	end
 end
 end
