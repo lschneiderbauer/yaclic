@@ -1,24 +1,32 @@
 module Yaclic
 class ExpressionPointer
 
-	def initialize(operation=nil,sym=nil)
-		@operation = operation
+	# think of sym as the identifier of the expression pointer
+	# if there is no sym, it cannot be identified.
+	#
+	def initialize(env,expression,sym)
+		@env = env
+		@expression = expression
 		@sym = sym
 	end
 
 	# assignment operator
 	def <<(other)
-		#TODO check for loops etc!
 
-		@operation = 
+		@expression = 
 		if other.is_a? ExpressionPointer
 			other.operation
+
 		elsif other.is_a? Numeric
-			debug "numeric value recognized"
-			OperatorNum.new(other)
+			Expression.new(@env,:num,other)
+
+		elsif other.nil?
+			@env.___destroy_ep(@sym)	
+			nil
 		end
 
 		return self
+
 	end
 
 	# use as function with x-range
@@ -27,18 +35,18 @@ class ExpressionPointer
 	end
 
 
-	def -@;	ExpressionPointer.new(OperatorAddInv.new(self));	end
+	def -@;	@env.___create_ep(Expression.new(@env,:add_inv,self));	end
 	def +@;	self;	end
 
-	def +(other);	ExpressionPointer.new(OperatorAdd.new(self,other));	end
-	def -(other);	self.+(ExpressionPointer.new(OperatorAddInv.new(other)));	end
-	def *(other);	ExpressionPointer.new(OperatorMul.new(self,other));	end
-	def /(other);	self.*(ExpressionPointer.new(OperatorMulInv.new(other)));	end
-	def **(other);	ExpressionPointer.new(OperatorPow.new(self,other));	end
+	def +(other);	@env.___create_ep(Expression.new(@env,:add,self,other));	end
+	def -(other);	self.+(@env.___create_ep(Expression.new(@env,:add_inv,other)));	end
+	def *(other);	@env.___create_ep(Expression.new(@env,:mul,self,other));	end
+	def /(other);	self.*(@env.___create_ep(Expression.new(@env,:mul_inv,other)));	end
+	def **(other);	@env.___create_ep(Expression.new(@env,:pow,self,other));	end
 
 	# operation-node
 	def operation
-		@operation || OperatorNil.new(self)
+		@expression || Expression.new(@env,:nil,self)
 	end
 
 	# calculate
@@ -63,8 +71,7 @@ class ExpressionPointer
 
 	# to deal with numbers
 	def coerce(other)
-		debug "coerced"
-		return ExpressionPointer.new(OperatorNum.new(other)), self
+		return @env.___create_ep(Expression.new(@env,:num,other)), self
 	end
 
 	# I admit, this code is a piece of shit,
@@ -91,7 +98,7 @@ class ExpressionPointer
 				end
 			end
 		else
-			if operation.is_a? OperatorNum and !@sym.nil?
+			if operation.op_num? and !@sym.nil?
 				get_sym_s
 			else
 				get_operation_s(true)
@@ -104,7 +111,7 @@ class ExpressionPointer
 	private
 
 	def get_operation_s(unfold)
-		unless operation.is_a? OperatorNil
+		unless operation.op_nil?
 			operation.to_s(unfold)
 		else
 			get_sym_s
@@ -112,7 +119,7 @@ class ExpressionPointer
 	end
 	
 	def get_sym_s
-		if operation.is_a? OperatorNil
+		if operation.op_nil?
 			@sym.to_s.bold.red
 		else
 			@sym.to_s.bold.green
@@ -121,10 +128,10 @@ class ExpressionPointer
 
 end
 
-::MATH_METHODS.each do |m|
+MATH_METHODS.each do |m|
 	ExpressionPointer.class_eval do
-		define_method m do
-			eval "ExpressionPointer.new(Operator#{m.to_s.capitalize}.new(self))"
+		define_method m do	
+			@env.___create_ep(Expression.new(@env,m,self))
 		end
 	end
 end

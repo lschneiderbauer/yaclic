@@ -3,12 +3,13 @@ class Environment
 	include Math
 
 	def initialize
-		
-		@___vars = []
+	
+		# list with expression pointers
+		@___index = {}
 
 		# initialize environment variables/constants
-		@_pi = ExpressionPointer.new(ConstPi.new)
-		@_ee = ExpressionPointer.new(ConstE.new)
+		@___index[:_pi] = self.___create_ep(Expression.new(self,:const_pi))
+		@___index[:_ee] = self.___create_ep(Expression.new(self,:const_e))
 
 	end
 	
@@ -22,56 +23,63 @@ class Environment
 
 	def method_missing(sym, *args)
 
-		debug "method_missing for #{sym}"
-		if sym.to_s =~ /^.*/	# if method-name is ascii ..
+		syms = []
 
-			syms = []
+		# only take a >1 character if the string begins with "_"
+		if sym.to_s.chars.first == "_"
+			syms = [sym]
+		else
+			syms = sym.to_s.chars.to_a
+		end
 
-			# only take a >1 character if the string begins with "_"
-			if sym.to_s.chars.first == "_"
-				syms = [sym]
-			else
-				syms = sym.to_s.chars.to_a
-			end
+		# create each ExpressionPointer
+		expr = nil
+		syms.each do |s|
 
-			# create each ExpressionPointer
-			expr = nil
-			syms.each do |s|
-
-				if self.evaluate "@#{s}.nil?"
+			unless @___index.include? s
 	
-					# create new variable with ExpressionPointer
-					expr = self.evaluate "@#{s} = ExpressionPointer.new(nil,:#{s})"
+				# create new ExpressionPointer
+				expr = self.___create_ep(nil,s)
+	
+			else
 
-					# and add it to the index
-					@___vars << s
+				expr = @___index[s]
 
-				else
-
-					expr = self.evaluate "@#{s}"
-
-				end
-
-			end
-
-			# and concat them with multiplications (or if just one, leave it)
-			expr = self.evaluate syms.join("*") if syms.count > 1
-
-			# got another expression_pointer as argument?
-			if !args.empty? && (args[0].is_a?(ExpressionPointer) || args[0].is_a?(Numeric))
-
-				# do multiplication and return the result
-				return expr*args[0]
-
-			else # otherwise just return the object
-				return expr
 			end
 
 		end
 
+		# and concat them with multiplications (or if just one, leave it)
+		expr = self.evaluate syms.join("*") if syms.count > 1
+
+		# got another expression_pointer as argument?
+		if !args.empty? && (args[0].is_a?(ExpressionPointer) || args[0].is_a?(Numeric))
+
+			# do multiplication and return the result
+			return expr*args[0]
+
+		else # otherwise just return the object
+			return expr
+		end
+
 	end
 
+	def ___create_ep(operation=nil,sym=nil)
+		
+		# create Expression Pointer
+		ep = ExpressionPointer.new(self,operation,sym)
 
+		# add to index
+		@___index[sym] = ep unless sym.nil?
+
+		return ep
+	end
+
+	def ___destroy_ep(sym)
+		@___index.delete(sym) unless sym.nil?
+	end
+
+	# dirty
 	def ___clone
 		#TODO: make a clean solution with clone-methods of objects!!
 		env = Environment.new
@@ -80,7 +88,7 @@ class Environment
 		$colored = false
 
 		# transfer all variables
-		@___vars.each do |sym|
+		@___index.each_key do |sym|
 			env.evaluate("#{sym} << #{self.evaluate("#{sym}")}")
 		end
 
@@ -114,10 +122,10 @@ class Environment
 end
 
 # dynamically map Math methods to Environment methods
-::MATH_METHODS.each do |m|
+MATH_METHODS.each do |m|
 	Environment.class_eval do
 		define_method m do |expr_p|
-			eval "ExpressionPointer.new(Operator#{m.to_s.capitalize}.new(expr_p))"
+			self.___create_ep(Expression.new(@env,m,expr_p))
 		end
 	end
 
