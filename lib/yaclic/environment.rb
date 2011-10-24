@@ -79,20 +79,13 @@ class Environment
 		@___index.delete(sym) unless sym.nil?
 	end
 
-	# dirty
 	def ___clone
-		#TODO: make a clean solution with clone-methods of objects!!
+
 		env = Environment.new
 
-		old_colored = $colored
-		$colored = false
-
-		# transfer all variables
-		@___index.each_key do |sym|
-			env.evaluate("#{sym} << #{self.evaluate("#{sym}")}")
+		@___index.each do |sym,ep|
+			ep.clone(env)
 		end
-
-		$colored = old_colored
 
 		return env
 	end
