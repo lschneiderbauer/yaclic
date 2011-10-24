@@ -64,24 +64,29 @@ class ExpressionPointer
 	end
 
 
-	# calculate
+	# numeric version
 	#
 	def calculate
-		"#{operation.apply_operator}".bold.green
+		operation.apply_operator
+	end
+
+	def to_float
+		operation.apply_operator.to_f
+	end
+
+	# string version
+	#
+	def c
+		"#{calculate}".bold.green
+	end
+
+	def cf
+		"#{to_float}".bold.green
 	end
 
 	def unfold	# unfold all pointers
 		self.to_s(false,true)
 	end
-
-	def to_float
-		"#{operation.apply_operator.to_f}".bold.green
-	end
-
-
-	alias n operation
-	alias c calculate
-	alias cf to_float
 	alias u unfold
 
 

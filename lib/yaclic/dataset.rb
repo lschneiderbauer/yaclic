@@ -14,7 +14,7 @@ class Dataset
 
 		go = false
 		(begin
-			new_env.index[sym_f].cf
+			new_env.index[sym_f].to_float
 			go = true
 
 		rescue CannotCalculateError => error
@@ -28,7 +28,7 @@ class Dataset
 		@set = {}
 		range.step(step) do |num|
 			new_env.index[sym_var] << num
-			@set[num] = new_env.index[sym_f].cf
+			@set[num] = new_env.index[sym_f].to_float
 		end
 
 	end
