@@ -11,6 +11,7 @@ require 'yaclic/colored'
 
 require 'yaclic/dataset'
 require 'yaclic/history'
+require 'yaclic/index'
 
 
 # Exceptions
