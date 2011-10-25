@@ -14,7 +14,7 @@ class ExpressionPointer
 	#
 	def ___clone(new_env)
 
-		new_env.___create_ep( (@expression.nil? ? nil : @expression.___clone(new_env)), @sym )
+		new_env.___get_ep( (@expression.nil? ? nil : @expression.___clone(new_env)), @sym )
 
 	end
 
@@ -44,14 +44,14 @@ class ExpressionPointer
 	end
 
 
-	def -@;	@env.___create_ep(Expression.new(@env,:add_inv,self));	end
+	def -@;	@env.___get_ep(Expression.new(@env,:add_inv,self));	end
 	def +@;	self;	end
 
-	def +(other);	@env.___create_ep(Expression.new(@env,:add,self,other));	end
-	def -(other);	self.+(@env.___create_ep(Expression.new(@env,:add_inv,other)));	end
-	def *(other);	@env.___create_ep(Expression.new(@env,:mul,self,other));	end
-	def /(other);	self.*(@env.___create_ep(Expression.new(@env,:mul_inv,other)));	end
-	def **(other);	@env.___create_ep(Expression.new(@env,:pow,self,other));	end
+	def +(other);	@env.___get_ep(Expression.new(@env,:add,self,other));	end
+	def -(other);	self.+(@env.___get_ep(Expression.new(@env,:add_inv,other)));	end
+	def *(other);	@env.___get_ep(Expression.new(@env,:mul,self,other));	end
+	def /(other);	self.*(@env.___get_ep(Expression.new(@env,:mul_inv,other)));	end
+	def **(other);	@env.___get_ep(Expression.new(@env,:pow,self,other));	end
 
 	# operation-node
 	#
@@ -92,7 +92,7 @@ class ExpressionPointer
 
 	# to deal with numbers
 	def coerce(other)
-		return @env.___create_ep(Expression.new(@env,:num,other)), self
+		return @env.___get_ep(Expression.new(@env,:num,other)), self
 	end
 
 	# I admit, this code is a piece of shit,
@@ -153,7 +153,7 @@ end
 MATH_METHODS.each do |m|
 	ExpressionPointer.class_eval do
 		define_method m do	
-			@env.___create_ep(Expression.new(@env,m,self))
+			@env.___get_ep(Expression.new(@env,m,self))
 		end
 	end
 end

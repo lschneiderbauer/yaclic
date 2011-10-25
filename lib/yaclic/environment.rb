@@ -8,8 +8,8 @@ class Environment
 		@index = Index.new
 
 		# initialize environment variables/constants
-		@index[:_pi] = self.___create_ep(Expression.new(self,:const_pi))
-		@index[:_ee] = self.___create_ep(Expression.new(self,:const_e))
+		@index[:_pi] = self.___get_ep(Expression.new(self,:const_pi))
+		@index[:_ee] = self.___get_ep(Expression.new(self,:const_e))
 
 	end
 	
@@ -36,16 +36,7 @@ class Environment
 		expr = nil
 		syms.each do |s|
 
-			unless @index.include? s
-	
-				# create new ExpressionPointer
-				expr = self.___create_ep(nil,s)
-	
-			else
-
-				expr = @index[s]
-
-			end
+			expr = self.___get_ep(nil,s)
 
 		end
 
@@ -64,13 +55,19 @@ class Environment
 
 	end
 
-	def ___create_ep(operation=nil,sym=nil)
-		
-		# create Expression Pointer
-		ep = ExpressionPointer.new(self,operation,sym)
+	def ___get_ep(operation=nil,sym=nil)
 
-		# add to index
-		@index[sym] = ep unless sym.nil?
+		if sym.nil? || !@index.include?(sym)
+
+			# create Expression Pointer
+			ep = ExpressionPointer.new(self,operation,sym)
+
+			# add to index if sym
+			@index[sym] = ep unless sym.nil?
+
+		else	
+			ep = @index[sym]
+		end
 
 		return ep
 	end
@@ -121,7 +118,7 @@ end
 MATH_METHODS.each do |m|
 	Environment.class_eval do
 		define_method m do |expr_p|
-			self.___create_ep(Expression.new(@env,m,expr_p))
+			self.___get_ep(Expression.new(@env,m,expr_p))
 		end
 	end
 

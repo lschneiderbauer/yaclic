@@ -92,9 +92,8 @@ class PromptTest < Test::Unit::TestCase
 		@prompt.do_cycle("a << e+f")
 		@prompt.do_cycle("f << g*h")
 
-		result = ""
-		(-9..11).each {|elem| result << "#{elem.to_f}\n"}
-		result.chop!
+		
+		result = (-10..10).map{|key| "#{key}".rjust(10) + " | ".blue + (key.to_f+1).to_s.green.bold }.join "\n"
 		assert_equal result, @prompt.do_cycle("a[g,-10..10]")
 
 	end

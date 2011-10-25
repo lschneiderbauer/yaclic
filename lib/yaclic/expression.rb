@@ -93,7 +93,7 @@ class Expression
 				" " + SYMBOL_MAP[@type].to_s.cyan.bold + " " + @bin2.to_s(false,unfold) + ")".blue.bold
 
 			when :add_inv
-				"-#{@una.to_s(false,unfold)}".bold	
+				"-#{@una.to_s(false,unfold)}".bold
 
 			when :mul_inv
 				"1/#{@una.to_s(false,unfold)}".bold
@@ -148,7 +148,7 @@ private
 
 			ret <<
 			if var.is_a? Numeric
-				@env.___create_ep(Expression.new(@env,:num,var))
+				@env.___get_ep(Expression.new(@env,:num,var))
 
 			elsif var.is_a? ExpressionPointer
 				var
