@@ -8,10 +8,6 @@ class Environment
 	
 		@kernel = kernel
 		
-		# initialize environment variables/constants
-		@index[:_pi] = self.___get_ep(Expression.new(self,:const_pi))
-		@index[:_ee] = self.___get_ep(Expression.new(self,:const_e))
-
 	end
 	
 	def evaluate(str)

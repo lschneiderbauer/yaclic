@@ -7,9 +7,13 @@ class Kernel
 
 	def initialize(history=nil,env=nil)
 		@history = (history || History.new)
-		@env = (env || Environment.new)
+		@env = (env || Environment.new(self))
 
 		@index = Index.new	# Index for ExpressionPointer
+
+		# create constants
+		self.get_ep(:_pi, :const_pi)
+		self.get_ep(:_ee, :const_e)
 	end
 
 	def evaluate(str)
@@ -23,8 +27,14 @@ class Kernel
 	end
 
 
+	# Takes care of creating ExpressionPointeres
+	# ExpressionPointer should _only_ be created here.
+	#
+	def get_ep(sym=nil,*operations_params)
 
-	def get_ep(operation=nil,sym=nil)
+		unless operations_params.empty? # create the expression then
+			Expression.new(self,*operations_params)
+		end
 
 		if sym.nil? || !@index.include?(sym)
 
