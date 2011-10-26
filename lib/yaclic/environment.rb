@@ -1,12 +1,13 @@
 module Yaclic
+# Environment should just provide the evaluation binding, nothing more.
+# All, that _can_ be in Kernel class, should be there, not here.
 class Environment
 	include Math
 
-	def initialize
+	def initialize(kernel)
 	
-		# list with expression pointers
-		@index = Index.new
-
+		@kernel = kernel
+		
 		# initialize environment variables/constants
 		@index[:_pi] = self.___get_ep(Expression.new(self,:const_pi))
 		@index[:_ee] = self.___get_ep(Expression.new(self,:const_e))
@@ -36,7 +37,7 @@ class Environment
 		expr = nil
 		syms.each do |s|
 
-			expr = self.___get_ep(nil,s)
+			expr = @kernel.get_ep(nil,s)
 
 		end
 
@@ -54,27 +55,7 @@ class Environment
 		end
 
 	end
-
-	def ___get_ep(operation=nil,sym=nil)
-
-		if sym.nil? || !@index.include?(sym)
-
-			# create Expression Pointer
-			ep = ExpressionPointer.new(self,operation,sym)
-
-			# add to index if sym
-			@index[sym] = ep unless sym.nil?
-
-		else	
-			ep = @index[sym]
-		end
-
-		return ep
-	end
-
-	def ___destroy_ep(sym)
-		@index.delete(sym) unless sym.nil?
-	end
+	
 
 	def ___clone
 		new_env = Environment.new
@@ -118,7 +99,7 @@ end
 MATH_METHODS.each do |m|
 	Environment.class_eval do
 		define_method m do |expr_p|
-			self.___get_ep(Expression.new(@env,m,expr_p))
+			@kernel.get_ep(Expression.new(@env,m,expr_p))
 		end
 	end
 
