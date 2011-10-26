@@ -16,7 +16,7 @@ class Kernel
 		@history.push!(str)
 
 		if str != "history"
-			@env.evaluate(preprocess_input(str))
+			@env.evaluate(str)
 		else
 			@history
 		end
@@ -51,17 +51,6 @@ class Kernel
 
 	def history
 		@history
-	end
-
-
-	private
-
-	def preprocess_input(str)
-	        # add "*" if
-		# - paranthesis (must look away from letter) next to letter then
-		# - letters separated with whitespace are next to each other
-		# - numbers ...
-		str
 	end
 
 end
