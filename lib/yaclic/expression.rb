@@ -10,9 +10,9 @@ class Expression
 	# above environment link
 	# operation as symlink
 	# expression pointer 1 and 2
-	def initialize (env, op, ep1=nil, ep2=nil)
+	def initialize (kernel, op, ep1=nil, ep2=nil)
 
-		@env = env
+		@kernel = kernel
 		@type = op
 
 		case @type
@@ -148,8 +148,9 @@ private
 
 			ret <<
 			if var.is_a? Numeric
-				@env.___get_ep(Expression.new(@env,:num,var))
+				@kernel.get_ep(nil,:num,var)
 
+	
 			elsif var.is_a? ExpressionPointer
 				var
 
