@@ -61,6 +61,10 @@ class Kernel
 		Kernel.new(@history.clone, @env.___clone)	
 	end
 
+	def index
+		@index
+	end
+
 	def history
 		@history
 	end
