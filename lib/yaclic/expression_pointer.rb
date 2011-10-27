@@ -4,17 +4,20 @@ class ExpressionPointer
 	# think of sym as the identifier of the expression pointer
 	# if there is no sym, it cannot be identified.
 	#
-	def initialize(env,expression,sym)
-		@env = env
+	def initialize(kernel,sym,expression)
+		@kernel = kernel
 		@expression = expression
 		@sym = sym
 	end
 
 	# clone into new environment
 	#
-	def ___clone(new_env)
+	def ___clone(new_kernel)
 
-		new_env.___get_ep( (@expression.nil? ? nil : @expression.___clone(new_env)), @sym )
+		# create new expression?
+		raise "todo"
+		#new_kernel.get_ep( @sym, 
+		#new_env.___get_ep( (@expression.nil? ? nil : @expression.___clone(new_env)), @sym )
 
 	end
 
@@ -47,16 +50,16 @@ class ExpressionPointer
 	def -@;	@env.___get_ep(Expression.new(@env,:add_inv,self));	end
 	def +@;	self;	end
 
-	def +(other);	@env.___get_ep(Expression.new(@env,:add,self,other));	end
-	def -(other);	self.+(@env.___get_ep(Expression.new(@env,:add_inv,other)));	end
-	def *(other);	@env.___get_ep(Expression.new(@env,:mul,self,other));	end
-	def /(other);	self.*(@env.___get_ep(Expression.new(@env,:mul_inv,other)));	end
-	def **(other);	@env.___get_ep(Expression.new(@env,:pow,self,other));	end
+	def +(other);	@kernel.get_ep(nil,:add,self,other);	end
+	def -(other);	self.+(@kernel.get_ep(nil,:add_inv,other));	end
+	def *(other);	@kernel.get_ep(nil,:mul,self,other);	end
+	def /(other);	self.*(@kernel.get_ep(nil,:mul_inv,other));	end
+	def **(other);	@kernel.get_ep(nil,:pow,self,other);	end
 
 	# operation-node
 	#
 	def operation
-		@expression || Expression.new(@env,:nil,self)
+		@expression || Expression.new(@kernel,:nil,self)
 	end
 
 	def sym
@@ -92,7 +95,7 @@ class ExpressionPointer
 
 	# to deal with numbers
 	def coerce(other)
-		return @env.___get_ep(Expression.new(@env,:num,other)), self
+		return @kernel.get_ep(nil,:num,other), self
 	end
 
 	# I admit, this code is a piece of shit,
@@ -153,7 +156,7 @@ end
 MATH_METHODS.each do |m|
 	ExpressionPointer.class_eval do
 		define_method m do	
-			@env.___get_ep(Expression.new(@env,m,self))
+			@kernel.get_ep(nil,m,self)
 		end
 	end
 end

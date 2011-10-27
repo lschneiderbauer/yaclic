@@ -32,15 +32,17 @@ class Kernel
 	#
 	def get_ep(sym=nil,*operations_params)
 
-		unless operations_params.empty? # create the expression then
-			Expression.new(self,*operations_params)
+		operation = nil
+		if (!operations_params.nil? && !operations_params.empty?)	# create the expression then
+			operation = Expression.new(self,*operations_params)
 		end
 
 		if sym.nil? || !@index.include?(sym)
 
 			# Create ExpressionPointer
-			ep = ExpressionPointer.new(self,operation,sym)
+			ep = ExpressionPointer.new(self,sym,operation)
 
+			@index[sym] = ep unless sym.nil?
 		else
 			ep = @index[sym]
 		end

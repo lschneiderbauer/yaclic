@@ -33,7 +33,7 @@ class Environment
 		expr = nil
 		syms.each do |s|
 
-			expr = @kernel.get_ep(nil,s)
+			expr = @kernel.get_ep s
 
 		end
 
@@ -95,7 +95,7 @@ end
 MATH_METHODS.each do |m|
 	Environment.class_eval do
 		define_method m do |expr_p|
-			@kernel.get_ep(Expression.new(@env,m,expr_p))
+			@kernel.get_ep(@kernel,m,expr_p)
 		end
 	end
 
