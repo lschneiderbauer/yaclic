@@ -86,7 +86,7 @@ class Environment
 	end
 
 	def index
-		@index
+		@kernel.index
 	end
 
 end

@@ -21,11 +21,11 @@ class KernelTest < Test::Unit::TestCase
 
 		kernel = Yaclic::Kernel.new
 
-		kernel.evaluate("a << e+f")
-		kernel.set(:e, 3)
-		kernel.set(:f, Rational(1/3))
+		kernel[:a] << (kernel[:e] + kernel[:f])
+		kernel[:e] << 3
+		kernel.get_ep(:f) << Rational(1/3)
 
-		assert_equal "10/3", kernel.evaluate("a.c")
+		assert_equal "10/3", kernel[:a].c
 
 	end
 

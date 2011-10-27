@@ -37,7 +37,7 @@ class Kernel
 			operation = Expression.new(self,*operations_params)
 		end
 
-		if sym.nil? || !@index.include?(sym)
+		if (sym.nil? || !@index.include?(sym)) || !operation.nil?
 
 			# Create ExpressionPointer
 			ep = ExpressionPointer.new(self,sym,operation)

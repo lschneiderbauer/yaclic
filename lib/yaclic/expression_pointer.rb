@@ -30,10 +30,10 @@ class ExpressionPointer
 			other.operation
 
 		elsif other.is_a? Numeric
-			Expression.new(@env,:num,other)
+			Expression.new(@kernel,:num,other)
 
 		elsif other.nil?
-			@env.___destroy_ep(@sym)
+			@kernel.destroy_ep(@sym)
 			nil
 		end
 
