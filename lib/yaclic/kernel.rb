@@ -55,10 +55,13 @@ class Kernel
 		@index.delete(sym) unless sym.nil?
 	end
 
-
-
 	def clone
 		Kernel.new(@history.clone, @env.___clone)	
+	end
+
+
+	def [](sym)
+		self.get_ep(sym)
 	end
 
 	def index
