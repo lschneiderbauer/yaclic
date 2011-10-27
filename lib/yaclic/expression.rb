@@ -31,25 +31,28 @@ class Expression
 				@num = ep1.to_s.to_r	# p.to_r alone would be very ugly in ruby 1.9
 
 			else
-				raise "type not known: '#{@type}'"
+				raise "type not known: '#{@type.class}'"
 
 		end
 
 	end
 	
-	def ___clone(new_env)
-		Expression.new(new_env, @type, 
+	def ___clone(new_kernel)
+		return Expression.new(new_kernel, @type, 
 			*case @type
 				when :add,:mul,:pow
-					[@bin1.___clone(new_env),@bin2.___clone(new_env)]
+					[@bin1.___clone(new_kernel),@bin2.___clone(new_kernel)]
 				when *([:add_inv,:mul_inv,:nil]+MATH_METHODS)
-					[@una.___clone(new_env),nil]
+					[@una.___clone(new_kernel),nil]
 				when :num
 					[@num,nil]
-				else
+				else # including :const_pi, :const_e
 					[nil,nil]
 			end
-		)
+		) unless @type == :nil
+
+		# else return nil
+		return nil
 	end
 
 

@@ -53,16 +53,6 @@ class Environment
 	end
 	
 
-	def ___clone
-		new_env = Environment.new
-
-		@index.each do |sym,ep|
-			ep.___clone(new_env)
-		end
-
-		return new_env
-	end
-
 
 	# calculator commands
 	# ====================================
@@ -83,6 +73,10 @@ class Environment
 
 	def test
 		"Okay.".cyan
+	end
+
+	def history
+		@kernel.history
 	end
 
 	def index

@@ -1,20 +1,19 @@
 module Yaclic
 class Dataset
 
-	def initialize(env, sym_f, sym_var, range, step)
+	def initialize(kernel, sym_f, sym_var, range, step)
 
 		# clone the whole environment
 		#
-		new_env = env.___clone
-
+		new_kernel = kernel.clone
 
 		# default unset variables to 1
 		#
-		new_env.index[sym_var] << range.begin
+		new_kernel.index[sym_var] << range.begin
 
 		go = false
 		(begin
-			new_env.index[sym_f].to_float
+			new_kernel.index[sym_f].to_float
 			go = true
 
 		rescue CannotCalculateError => error
@@ -27,8 +26,8 @@ class Dataset
 		#
 		@set = {}
 		range.step(step) do |num|
-			new_env.index[sym_var] << num
-			@set[num] = new_env.index[sym_f].to_float
+			new_kernel.index[sym_var] << num
+			@set[num] = new_kernel.index[sym_f].to_float
 		end
 
 	end

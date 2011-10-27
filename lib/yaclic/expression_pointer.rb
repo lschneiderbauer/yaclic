@@ -13,12 +13,7 @@ class ExpressionPointer
 	# clone into new environment
 	#
 	def ___clone(new_kernel)
-
-		# create new expression?
-		raise "todo"
-		#new_kernel.get_ep( @sym, 
-		#new_env.___get_ep( (@expression.nil? ? nil : @expression.___clone(new_env)), @sym )
-
+		new_kernel.get_ep(@sym, operation.___clone(new_kernel))
 	end
 
 	# assignment operator
@@ -43,11 +38,11 @@ class ExpressionPointer
 
 	# use as function with x-range
 	def [](ep,range,step=1)
-		Dataset.new(@env,@sym,ep.sym,range,step)
+		Dataset.new(@kernel,@sym,ep.sym,range,step)
 	end
 
 
-	def -@;	@env.___get_ep(Expression.new(@env,:add_inv,self));	end
+	def -@;	@kernel.get_ep(nil,:add_inv,self);	end
 	def +@;	self;	end
 
 	def +(other);	@kernel.get_ep(nil,:add,self,other);	end

@@ -5,10 +5,9 @@ module Yaclic
 # appropriate response.
 class Kernel
 
-	def initialize(history=nil,env=nil)
+	def initialize(history=nil)
 		@history = (history || History.new)
-		@env = (env || Environment.new(self))
-
+		@env = Environment.new(self)
 		@index = Index.new	# Index for ExpressionPointer
 
 		# create constants
@@ -19,25 +18,30 @@ class Kernel
 	def evaluate(str)
 		@history.push!(str)
 
-		if str != "history"
-			@env.evaluate(str)
-		else
-			@history
-		end
+		@env.evaluate(str)
 	end
 
 
 	# Takes care of creating ExpressionPointeres
 	# ExpressionPointer should _only_ be created here.
-	#
+	# Exception: Cloning-part
 	def get_ep(sym=nil,*operations_params)
 
 		operation = nil
-		if (!operations_params.nil? && !operations_params.empty?)	# create the expression then
+		if (!operations_params.nil? &&
+			!operations_params.empty? &&
+				!operations_params[0].nil? &&
+					!operations_params[0].is_a?(Expression))
+
+			# create the expression then
 			operation = Expression.new(self,*operations_params)
+			
+		elsif operations_params[0].is_a? Expression
+
+			operation = operations_params[0]
 		end
 
-		if (sym.nil? || !@index.include?(sym)) || !operation.nil?
+		if (sym.nil? || !@index.include?(sym))
 
 			# Create ExpressionPointer
 			ep = ExpressionPointer.new(self,sym,operation)
@@ -55,8 +59,15 @@ class Kernel
 		@index.delete(sym) unless sym.nil?
 	end
 
+
 	def clone
-		Kernel.new(@history.clone, @env.___clone)	
+		new_kernel = Kernel.new(@history.clone)
+
+		@index.each do |sym,ep|
+			ep.___clone(new_kernel)
+		end
+
+		return new_kernel
 	end
 
 
@@ -65,11 +76,11 @@ class Kernel
 	end
 
 	def index
-		@index
+		@index.clone
 	end
 
 	def history
-		@history
+		@history.clone
 	end
 
 end
