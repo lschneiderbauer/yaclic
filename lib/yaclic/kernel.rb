@@ -80,7 +80,7 @@ class Kernel
 	end
 
 	def history
-		@history.clone
+		@history
 	end
 
 end
