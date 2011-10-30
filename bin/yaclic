@@ -18,12 +18,26 @@ $colored = true
 
 prompt = Prompt.new
 
+
+ARG_MAP = {
+	:h => :help,
+	:v => :version,
+	:d => :debug
+}
+	
+
 if ARGV.empty? # parameters?
 	prompt.start_loop
 else
 	# before do some preprocessing
 	arg = ARGV.join(" ")
-	arg.delete! "--" if arg.start_with? "--" 
+
+	if arg.start_with? "--" 
+		arg.delete! "--" 
+	elsif arg.start_with? "-"
+		arg.delete! "-"
+		arg = arg.chars.map{|ch| ARG_MAP[ch.to_sym].to_s }.join(" ")
+	end
 
 	prompt.do_cycle(arg)
 end
