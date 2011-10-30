@@ -18,11 +18,11 @@ class Expression
 		case @type
 
 			when :add,:mul,:pow
-				@bin1 = ep1.to_e(@kernel)
-				@bin2 = ep2.to_e(@kernel)
+				@bin1 = ep1.to_ep(@kernel)
+				@bin2 = ep2.to_ep(@kernel)
 
 			when *([:add_inv,:mul_inv,:nil]+MATH_METHODS)
-				@una = ep1.to_e(@kernel)
+				@una = ep1.to_ep(@kernel)
 
 			when :const_pi, :const_e
 				# do nothing
@@ -171,7 +171,7 @@ end if RUBY_VERSION < "1.9"
 
 class Numeric
 
-	def to_e(kernel)
+	def to_ep(kernel)
 		kernel.get_ep(nil,:num,self)
 	end
 end
