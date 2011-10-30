@@ -12,7 +12,14 @@ class Environment
 	
 	def evaluate(str)
 		unless str.include? "___"
-			eval(str,binding)
+			o = eval(str,binding)
+			
+			begin
+				return o.to_ep(@kernel)
+			rescue Exception => ex
+				debug(ex.to_s)
+				return o	
+			end
 		else
 			raise SymbolPreservedError.new
 		end

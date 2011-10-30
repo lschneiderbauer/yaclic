@@ -20,16 +20,12 @@ class ExpressionPointer
 	#
 	def <<(other)
 
-		@expression = 
-		if other.is_a? ExpressionPointer
-			other.operation
-
-		elsif other.is_a? Numeric
-			Expression.new(@kernel,:num,other)
-
-		elsif other.nil?
+		@expression =
+		if other.nil?
 			@kernel.destroy_ep(@sym)
 			nil
+		else
+			other.to_ep(@kernel).operation
 		end
 
 		return self
@@ -91,6 +87,14 @@ class ExpressionPointer
 	# to deal with numbers
 	def coerce(other)
 		return @kernel.get_ep(nil,:num,other), self
+	end
+
+	def to_ep(kernel)
+		if kernel != @kernel
+			self.___clone(kernel)
+		else
+			self
+		end
 	end
 
 	# I admit, this code is a piece of shit,

@@ -18,20 +18,21 @@ class Expression
 		case @type
 
 			when :add,:mul,:pow
-				@bin1,@bin2 = align(ep1,ep2)	
+				@bin1 = ep1.to_ep(@kernel)
+				@bin2 = ep2.to_ep(@kernel)
 
 			when *([:add_inv,:mul_inv,:nil]+MATH_METHODS)
-				@una = align(ep1)
+				@una = ep1.to_ep(@kernel)
 
 			when :const_pi, :const_e
 				# do nothing
 
 			when :num
-				raise ArgumentError unless ep1.is_a? Numeric	
+				raise ArgumentError unless ep1.is_a? Numeric
 				@num = ep1.to_s.to_r	# p.to_r alone would be very ugly in ruby 1.9
 
 			else
-				raise "type not known: '#{@type.class}'"
+				raise "type not known: '#{@type}'"
 
 		end
 
@@ -137,35 +138,6 @@ class Expression
 		(@type == :num)
 	end
 
-private
-	
-	def align(*vars)
-		# ep's should be ExpressionPointers
-		# if nil do nothing
-		# if ExpressionPointers, leave it
-		# if Numerics, make ExpressionPointers with Numeric-Operator
-		#
-		ret = []
-
-		vars.each do |var|
-
-			ret <<
-			if var.is_a? Numeric
-				@kernel.get_ep(nil,:num,var)
-
-	
-			elsif var.is_a? ExpressionPointer
-				var
-
-			else
-				raise ArgumentError
-
-			end
-		end
-
-		return *ret
-	end
-
 end
 end
 
@@ -196,6 +168,13 @@ class String
 	end
 
 end if RUBY_VERSION < "1.9"
+
+class Numeric
+
+	def to_ep(kernel)
+		kernel.get_ep(nil,:num,self)
+	end
+end
 
 class Fixnum
 
