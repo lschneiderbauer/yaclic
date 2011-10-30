@@ -75,6 +75,11 @@ class Environment
 		"Okay.".cyan
 	end
 
+	def debug(bool=true)
+		$debug = bool
+		"Debug mode is ".cyan + (bool ? "on" : "off").to_s.bold.cyan + ".".cyan
+	end
+
 	def history
 		@kernel.history
 	end
