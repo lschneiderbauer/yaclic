@@ -20,16 +20,12 @@ class ExpressionPointer
 	#
 	def <<(other)
 
-		@expression = 
-		if other.is_a? ExpressionPointer
-			other.operation
-
-		elsif other.is_a? Numeric
-			Expression.new(@kernel,:num,other)
-
-		elsif other.nil?
+		@expression =
+		if other.nil?
 			@kernel.destroy_ep(@sym)
 			nil
+		else
+			other.to_ep(@kernel).operation
 		end
 
 		return self
