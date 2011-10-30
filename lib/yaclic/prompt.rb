@@ -34,6 +34,7 @@ class Prompt
 		rescue SyntaxError, NoMethodError => error
 			debug "#{error.class} | #{error}"
 			output = "Error, statement ignored".red
+			raise error if $debug
 		rescue Yaclic::CannotCalculateError
 			output = "Cannot be calculated atm".red
 		rescue Yaclic::SymbolPreservedError
@@ -44,6 +45,7 @@ class Prompt
 		rescue NameError => error
 			debug error.to_s
 			output = "Use lower case letters as symbols".red
+			raise error if $debug
 		rescue ZeroDivisionError
 			output = "Cannot divide by 0".red
 		rescue Errno::EDOM, Math::DomainError
