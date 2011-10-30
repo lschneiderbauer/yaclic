@@ -24,6 +24,8 @@ ARG_MAP = {
 	:v => :version,
 	:d => :debug
 }
+
+NO_EXIT_ON_ARG = [:debug]
 	
 
 if ARGV.empty? # parameters?
@@ -40,4 +42,6 @@ else
 	end
 
 	prompt.do_cycle(arg)
+
+	if NO_EXIT_ON_ARG.include? arg.to_sym then prompt.start_loop end
 end
