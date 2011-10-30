@@ -93,6 +93,14 @@ class ExpressionPointer
 		return @kernel.get_ep(nil,:num,other), self
 	end
 
+	def to_e(kernel)
+		if kernel != @kernel
+			self.___clone(kernel)
+		else
+			self
+		end
+	end
+
 	# I admit, this code is a piece of shit,
 	# but at least it works, and the results are
 	# as I want them.
