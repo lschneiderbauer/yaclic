@@ -11,7 +11,7 @@ class Environment
 	end
 	
 	def evaluate(str)
-		unless str.include? "___"
+		unless str.include? "___" or str == "_"
 			o = eval(str,binding)
 			
 			begin
