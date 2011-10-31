@@ -28,8 +28,8 @@ class Expression
 				# do nothing
 
 			when :num
-				raise ArgumentError unless ep1.is_a? Numeric
-				@num = ep1.to_s.to_r	# p.to_r alone would be very ugly in ruby 1.9
+				raise ArgumentError unless ep1.is_a? Rational
+				@num = ep1
 
 			else
 				raise "type not known: '#{@type}'"
@@ -172,14 +172,16 @@ end if RUBY_VERSION < "1.9"
 class Numeric
 
 	def to_ep(kernel)
-		kernel.get_ep(nil,:num,self)
+		rat = self.to_r
+		return kernel.get_ep(nil,:num,rat)
 	end
+
 end
 
 class Fixnum
 
 	def /(other)
-		self.quo other.to_s.to_r
+		self.quo other.to_r
 	end
 
 end
@@ -187,7 +189,13 @@ end
 class Float
 
 	def /(other)
-		self.to_s.to_r / other.to_s.to_r
+		self.to_r / other.to_r	
+	end
+
+	# Float cannot be converted to Rational (in general)
+	#
+	def to_r
+		return self
 	end
 
 	alias cf to_f
@@ -195,7 +203,37 @@ class Float
 end
 
 class Rational
-	
+
 	alias cf to_f
+
+	# automatically split powers of 10
+	#
+	alias orig_to_s to_s
+	def to_s
+
+		if (self == 0)
+			return orig_to_s
+		end
+
+		power_p = 0
+		power_n = 0
+		while ((self.numerator % (10**(power_p+1))) == 0) do power_p += 1 end
+		while ((self.denominator % (10**(power_n+1))) == 0) do power_n += 1 end
+
+		power = power_p - power_n
+
+		if power < 3 && power > -3	# activate enhanced output on which power?
+			return orig_to_s
+		else
+			new_rat = (self*(10**-power))
+
+			if new_rat == 1
+				return "10x#{power}"
+			else
+				return new_rat.orig_to_s + " 10x#{power}"
+			end
+		end
+
+	end
 
 end
