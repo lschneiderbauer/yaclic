@@ -27,7 +27,13 @@ class Dataset
 		@set = {}
 		range.step(step) do |num|
 			new_kernel.index[sym_var] << num
-			@set[num] = new_kernel.index[sym_f].to_float
+
+			@set[num] =
+			begin
+				new_kernel.index[sym_f].to_float
+			rescue ZeroDivisionError
+				Float::MAX
+			end
 		end
 
 	end
