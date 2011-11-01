@@ -6,7 +6,8 @@ class PromptTest < Test::Unit::TestCase
 
 	def setup
 		$stdout = File.new("/dev/null","w")
-		@prompt = Prompt.new
+		
+		@prompt = Prompt.new(Yaclic::Kernel.new)
 	end
 
 	def teardown
@@ -87,7 +88,7 @@ class PromptTest < Test::Unit::TestCase
 
 	def test_function
 		
-		@prompt = Prompt.new
+		@prompt = Prompt.new(Yaclic::Kernel.new)
 
 		@prompt.do_cycle("a << e+f")
 		@prompt.do_cycle("f << g*h")
@@ -100,7 +101,7 @@ class PromptTest < Test::Unit::TestCase
 
 	def test_history
 		
-		@prompt = Prompt.new
+		@prompt = Prompt.new(Yaclic::Kernel.new)
 
 		his = ["e<<a+b","x+yz","history"]
 
@@ -112,37 +113,37 @@ class PromptTest < Test::Unit::TestCase
 	end
 
 	def test_implicite_multiplication
-		@prompt = Prompt.new
+		@prompt = Prompt.new(Yaclic::Kernel.new)
 
 		assert_equal "(4 * a)", @prompt.do_cycle("4a")
 	end
 
 	def test_implicite_multiplication_2
-		@prompt = Prompt.new
+		@prompt = Prompt.new(Yaclic::Kernel.new)
 
 		assert_equal "(b / (7 * c))", @prompt.do_cycle("b/7c")
 	end
 
 	def test_implicite_multiplication_3
-		@prompt = Prompt.new
+		@prompt = Prompt.new(Yaclic::Kernel.new)
 
 		assert_equal "(a * (b * c))", @prompt.do_cycle("a b c")
 	end
 
 	def test_implicite_multiplication_4
-		@prompt = Prompt.new
+		@prompt = Prompt.new(Yaclic::Kernel.new)
 
 		assert_equal "((a + b) * c)", @prompt.do_cycle("(a+b)c")
 	end
 
 	def test_word
-		@prompt = Prompt.new
+		@prompt = Prompt.new(Yaclic::Kernel.new)
 
 		assert_equal "((a * b) * c)", @prompt.do_cycle("abc")
 	end
 
 	def test_word_2
-		@prompt = Prompt.new
+		@prompt = Prompt.new(Yaclic::Kernel.new)
 
 		assert_equal "_abc", @prompt.do_cycle("_abc")
 	end

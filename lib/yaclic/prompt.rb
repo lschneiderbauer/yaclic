@@ -3,8 +3,8 @@ class Math::DomainError < Exception; end if RUBY_VERSION < "1.9"
 
 class Prompt
 
-	def initialize
-		@kernel = Yaclic::Kernel.new
+	def initialize(kernel)
+		@kernel = kernel
 	end
 
 

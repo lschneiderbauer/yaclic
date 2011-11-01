@@ -16,7 +16,6 @@ require 'yaclic/prompt'
 $debug = false
 $colored = true
 
-prompt = Prompt.new
 
 
 ARG_MAP = {
@@ -27,6 +26,13 @@ ARG_MAP = {
 
 NO_EXIT_ON_ARG = [:debug]
 	
+
+
+# create kernel and prompt
+#
+kernel = Yaclic::Kernel.new
+prompt = Prompt.new(kernel)
+
 
 if ARGV.empty? # parameters?
 	prompt.start_loop
@@ -41,7 +47,10 @@ else
 		arg = arg.chars.map{|ch| ARG_MAP[ch.to_sym].to_s }.join(" ")
 	end
 
-	prompt.do_cycle(arg)
-
-	if NO_EXIT_ON_ARG.include? arg.to_sym then prompt.start_loop end
+	if NO_EXIT_ON_ARG.include? arg.to_sym
+		kernel.evaluate(arg)
+		prompt.start_loop
+	else
+		puts kernel.evaluate(arg)
+	end
 end
