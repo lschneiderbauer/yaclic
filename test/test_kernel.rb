@@ -25,8 +25,9 @@ class KernelTest < Test::Unit::TestCase
 		kernel[:e] << 3
 		kernel.get_ep(:f) << Rational(1/3)
 
-		assert_equal "10/3", kernel[:a].c
+		assert_equal Rational(10,3), kernel[:a].calculate
 
 	end
+	
 
 end

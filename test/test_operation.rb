@@ -43,5 +43,5 @@ class OperationTest < Test::Unit::TestCase
 
 		assert_equal 1.to_f, o.apply_operator
 	end
-	
+
 end
