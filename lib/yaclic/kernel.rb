@@ -10,6 +10,8 @@ class Kernel
 		@env = Environment.new(self)
 		@index = Index.new	# Index for ExpressionPointer
 
+		@debug = false	# general debug variable
+
 		# create constants
 		self.get_ep(:_pi, :const_pi)
 		self.get_ep(:_ee, :const_e)
@@ -81,6 +83,14 @@ class Kernel
 
 	def history
 		@history
+	end
+
+	def debug
+		@debug
+	end
+
+	def debug=(bool)
+		@debug = bool
 	end
 
 end

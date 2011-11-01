@@ -82,7 +82,7 @@ class Environment
 	end
 
 	def debug(bool=true)
-		$debug = bool
+		@kernel.debug = bool
 		"Debug mode is ".cyan + (bool ? "on" : "off").to_s.bold.cyan + ".".cyan
 	end
 

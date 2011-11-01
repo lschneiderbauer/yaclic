@@ -51,7 +51,7 @@ class Prompt
 		end
 
 		# raise error if on debug mode
-		raise error if !error.nil? && $debug
+		raise error if !error.nil? && @kernel.debug
 
 		# for safety reasons, print a warning if using the '=' character
 		if input.include? "=" then
