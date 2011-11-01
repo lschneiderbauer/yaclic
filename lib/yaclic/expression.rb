@@ -176,21 +176,28 @@ class Numeric
 		return kernel.get_ep(nil,:num,rat)
 	end
 
+	def /(other)
+		if other.is_a? Yaclic::ExpressionPointer
+			self.to_ep(other.kernel) / other
+		else
+			self.to_r / other.to_r
+		end
+	end
 end
 
 class Fixnum
 
 	def /(other)
-		self.quo other.to_r
+		super
 	end
-
 end
 
 class Float
-
+	
 	def /(other)
-		self.to_r / other.to_r
+		super
 	end
+
 
 	# Float cannot be converted to Rational (in general)
 	# so convert it to string and then to rational
