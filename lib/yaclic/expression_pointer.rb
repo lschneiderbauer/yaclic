@@ -57,6 +57,10 @@ class ExpressionPointer
 		@sym
 	end
 
+	def kernel
+		@kernel
+	end
+
 
 	# numeric version
 	#
