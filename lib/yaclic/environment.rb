@@ -17,7 +17,6 @@ class Environment
 			begin
 				return o.to_ep(@kernel)
 			rescue Exception => ex
-				debug(ex.to_s)
 				return o	
 			end
 		else
@@ -112,7 +111,6 @@ end
 	begin
 		Environment.class_eval("undef :#{c}")
 	rescue NameError
-		debug "cannot undefine #{c}"
 	end
 end
 end

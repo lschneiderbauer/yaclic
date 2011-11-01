@@ -6,7 +6,6 @@ end
 
 require 'rational' if RUBY_VERSION < "1.9"
 
-require 'yaclic/my_debug'
 require 'yaclic/colored'
 
 require 'yaclic/dataset'

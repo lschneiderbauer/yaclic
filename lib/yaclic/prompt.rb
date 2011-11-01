@@ -77,7 +77,6 @@ class Prompt
 
 		until ch.chr == "\r" do 
 			ch = get_char
-			debug ch
 	
 			unless ignore_next # to prevent umlauts from messing up the string
 			case ch
@@ -90,11 +89,9 @@ class Prompt
 				when 27 then ignore_next = true # arrow comes
 				#when 91 then #arrow
 				when 65 then #up
-					debug "arrow up"
 
 					# add the current string if needed
 					if @kernel.history.down?
-						debug "down"
 						@kernel.history.silent_push!(str) 
 					end
 
@@ -104,7 +101,6 @@ class Prompt
 
 
 				when 66 then #down
-					debug "arrow down"
 					
 					reset_text(str)
 					str = @kernel.history.down!
@@ -114,7 +110,9 @@ class Prompt
 				when 67 then #right - ignore
 				when 68 then #left - ignore
 				when 127 then print "\b \b" if str != ""; str.chop!
-				else print ch.chr; str << ch.chr; debug "#{ch} added to str"
+				else
+					print ch.chr
+					str << ch.chr
 			end
 			else
 				ignore_next = false
