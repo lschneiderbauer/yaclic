@@ -6,7 +6,7 @@ class Index < Hash
 	end
 
 	def to_s
-		keys.map{|sym| "#{sym}".rjust(10).bold.cyan + " | ".blue + "#{self.[](sym).operation}" }.join "\n"
+		keys.map{|sym| "#{sym}".rjust(10).bold.cyan + " | ".blue + "#{self.[](sym).operation}" }.sort.join "\n"
 	end
 
 end
