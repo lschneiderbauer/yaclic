@@ -28,7 +28,7 @@ class Expression
 				# do nothing
 
 			when :num
-				raise ArgumentError unless ep1.is_a? Rational
+				raise ArgumentError unless ep1.is_a? Numeric
 				@num = ep1
 
 			else
