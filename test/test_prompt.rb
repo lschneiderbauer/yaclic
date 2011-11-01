@@ -148,4 +148,16 @@ class PromptTest < Test::Unit::TestCase
 		assert_equal "_abc", @prompt.do_cycle("_abc")
 	end
 
+	def test_rational_output
+		@prompt = Prompt.new(Yaclic::Kernel.new)
+
+		assert_equal "10x-5", @prompt.do_cycle("1/100000")
+	end
+
+	def test_rational_output_2
+		@prompt = Prompt.new(Yaclic::Kernel.new)
+
+		assert_equal "3 10x8", @prompt.do_cycle("30*10**7")
+	end
+
 end
