@@ -189,13 +189,14 @@ end
 class Float
 
 	def /(other)
-		self.to_r / other.to_r	
+		self.to_r / other.to_r
 	end
 
 	# Float cannot be converted to Rational (in general)
-	#
+	# so convert it to string and then to rational
+	# (it's assumed, that the user cannot put in infinite floats)
 	def to_r
-		return self
+		return self.to_s.to_r
 	end
 
 	alias cf to_f
