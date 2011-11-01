@@ -28,31 +28,30 @@ class Prompt
 			puts input
 		end
 
+		error = nil
+		output =
 		begin
-			output = "#{@kernel.evaluate(input)}"
-
+			"#{@kernel.evaluate(input)}"
 		rescue SyntaxError, NoMethodError => error
-			debug "#{error.class} | #{error}"
-			output = "Error, statement ignored".red
-			raise error if $debug
-		rescue Yaclic::CannotCalculateError
-			output = "Cannot be calculated atm".red
-		rescue Yaclic::SymbolPreservedError
-			output = "Symbols with the '___'-prefix are preserved.".red
+			"Error, statement ignored".red
+		rescue Yaclic::CannotCalculateError => error
+			"Cannot be calculated atm".red
+		rescue Yaclic::SymbolPreservedError => error
+			"Symbol preserved.".red
 		rescue ArgumentError => error
-			debug error.to_s	
-			output = "Wrong number of arguments".red
+			"Wrong number of arguments".red
 		rescue NameError => error
-			debug error.to_s
-			output = "Use lower case letters as symbols".red
-			raise error if $debug
-		rescue ZeroDivisionError
-			output = "Cannot divide by 0".red
-		rescue Errno::EDOM, Math::DomainError
-			output = "Numerical argument is out of domain".red
-		rescue SystemStackError
-			output = "You seem to have a loop somewhere. Fix that!".red
+			"Use lower case letters as symbols".red
+		rescue ZeroDivisionError => error
+			"Cannot divide by 0".red
+		rescue Errno::EDOM, Math::DomainError => error
+			"Numerical argument is out of domain".red
+		rescue SystemStackError => error
+			"You seem to have a loop somewhere. Fix that!".red
 		end
+
+		# raise error if on debug mode
+		raise error if !error.nil? && $debug
 
 		# for safety reasons, print a warning if using the '=' character
 		if input.include? "=" then
